@@ -48,7 +48,6 @@ jobs: # 작업의 단위
             dist/
             public/
             views/
-            router/
             package.json
             package-lock.json
             system.config.js
@@ -82,7 +81,7 @@ jobs: # 작업의 단위
           script: |
             cd /home/ubuntu
             rm -rf front
-            mkdir -p front/dist front/public front/views front/router
+            mkdir -p front/dist front/public front/views
 
       - name: EC2에 아티펙트 복사
         run:
@@ -92,7 +91,6 @@ jobs: # 작업의 단위
           scp -r -i ~/.ssh/aws_key dist/* ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/ubuntu/front/dist
           scp -r -i ~/.ssh/aws_key public/* ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/ubuntu/front/public
           scp -r -i ~/.ssh/aws_key views/* ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/ubuntu/front/views
-          scp -r -i ~/.ssh/aws_key router/* ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/ubuntu/front/router
           scp -i ~/.ssh/aws_key package.json ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/ubuntu/front
           scp -i ~/.ssh/aws_key package-lock.json ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/ubuntu/front
           scp -i ~/.ssh/aws_key system.config.js ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/ubuntu/front
