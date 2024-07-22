@@ -1,10 +1,12 @@
 import express from 'express';
 import path from 'path';
+import PostRouter from './router/post.router'
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use("/post", PostRouter);
 
 app.set("/", express.static(path.join(__dirname, "../public")))
 app.set("view engine", "ejs");
