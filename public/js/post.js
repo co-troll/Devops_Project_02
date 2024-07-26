@@ -3,7 +3,6 @@
     class Posts {
     }
     const postList = document.querySelectorAll(".postBox");
-    const postContainer = document.querySelector("#postContainer");
     const postUpBtn = document.querySelector("#upBtn");
     const postDownBtn = document.querySelector("#downBtn");
     const commentStatus = (target) => {
@@ -53,8 +52,7 @@
     };
     let postEvent = false;
     let postTimeout;
-    const wheelXClassList = [];
-    postContainer.onwheel = (e) => {
+    document.onwheel = (e) => {
         const target = e.target;
         e.stopPropagation();
         if (postEvent || postTimeout || target.id != "postContainer") {

@@ -6,7 +6,6 @@ class Posts {
 
 const postList: NodeListOf<HTMLDivElement> = document.querySelectorAll(".postBox");
 
-const postContainer = document.querySelector("#postContainer") as HTMLDivElement;
 const postUpBtn = document.querySelector("#upBtn") as HTMLDivElement;
 const postDownBtn = document.querySelector("#downBtn") as HTMLDivElement;
 
@@ -60,9 +59,8 @@ const _clearTimeOut = () => {
 
 let postEvent = false;
 let postTimeout: NodeJS.Timeout | undefined;
-const wheelXClassList = []
 
-postContainer.onwheel = (e) => {
+document.onwheel = (e) => {
     const target = e.target as HTMLDivElement;
     e.stopPropagation();
 
