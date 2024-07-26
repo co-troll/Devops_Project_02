@@ -1,0 +1,22 @@
+.img-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.img-wrap>label {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid;
+}
+
+.img-wrap img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+#userImg {
+    display: none;
+}

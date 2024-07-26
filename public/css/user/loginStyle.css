@@ -1,0 +1,43 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form>div {
+    display: flex;
+    justify-content: space-between;
+}
+
+form>button {
+    width: 100%;
+}
+
+input {
+    outline: none;
+}
+
+.social-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.social-login-type {
+    display: flex;
+    align-items: center;
+}
+
+.social-login-type>div {
+    margin: 0 15px;
+
+}
+
+.social-login-type>div>img {
+    box-shadow: 0 0 10px;
+    border-radius: 50%;
+}
