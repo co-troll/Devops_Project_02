@@ -29,19 +29,22 @@ class Post {
     comment!: Comments;
     constructor() {}
 
-    async createPost() {
-        
-    }
-
-    async getPost(id: number) {
+    async setPost(id: number) {
         const { data }: {data: IPost} = await axios.get(`http://localhost:3000/post/${id}`);
         this.postId = data.id;
-        this.postImg = data.imgPath || "";
-        this.userImg = data.user.imgPath;
+        this.postImg = `http://localhost:3000${data.imgPath}` || "";
+        this.userImg = `http://localhost:3000${data.user.imgPath}`;
         this.userName = data.user.nickname;
         this.title = data.title;
         this.content = data.content;
         this.like = data.postLikes;
+    }
+
+    async createPost(title: string, content: string, file: string) {
+        
+    }
+
+    async getPost() {
         const postHtml = `
 <div class="post">
     <img src="${this.postImg}" alt="">
@@ -54,7 +57,7 @@ class Post {
         <p>${this.content}
         </p>
     </div>
-    <div class="commentBox" status="hidden">
+    <div class="commentBox" hidden>
         <div class="commentHeader">
             <h2>댓글</h2>
             <span>1</span>

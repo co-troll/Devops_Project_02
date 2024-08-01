@@ -10,9 +10,8 @@ class Comments {
 // .catch(function (err: any) {
 //     console.log(err);
 // });
-const postBoxes = document.querySelectorAll(".postBox");
 const commentEnter = (target) => {
-    target.setAttribute("status", "show");
+    target.hidden = false;
     const post = target.parentElement;
     const background = document.querySelector("#background");
     if (window.outerWidth * 65 / 100 < window.innerWidth) {
@@ -33,7 +32,7 @@ const commentEnter = (target) => {
 };
 const commentExit = (target) => {
     const post = target.parentElement;
-    target.setAttribute("status", "hidden");
+    target.hidden = true;
     post.removeAttribute("style");
     target.removeAttribute("style");
     const background = document.querySelector("#background");
@@ -41,26 +40,27 @@ const commentExit = (target) => {
 };
 window.onresize = () => {
     const comment = document.querySelector(".postBox.select > .post > .commentBox");
-    if (comment.getAttribute("status") == "show") {
+    if (!comment.hidden) {
         commentEnter(comment);
     }
 };
-postBoxes.forEach((postBox) => {
-    var _a;
-    const commentBtn = postBox.querySelector(".commentBtn");
-    const comment = (_a = commentBtn.parentElement) === null || _a === void 0 ? void 0 : _a.previousElementSibling;
-    // comment.removeAttribute("hidden");
-    commentBtn.onclick = (e) => {
-        var _a;
-        const btn = e.target;
-        const comment = (_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.previousElementSibling;
-        commentEnter(comment);
-    };
-    const commentExitBtn = postBox.querySelector(".commentExitBtn");
-    commentExitBtn.onclick = (e) => {
-        var _a;
-        const btn = e.target;
-        const comment = (_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
-        commentExit(comment);
-    };
-});
+const commentRender = async () => {
+    const postList = document.querySelectorAll(".postBox");
+    postList.forEach((postBox) => {
+        const commentBtn = postBox.querySelector(".commentBtn");
+        // comment.removeAttribute("hidden");
+        commentBtn.onclick = (e) => {
+            var _a;
+            const btn = e.target;
+            const comment = (_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.previousElementSibling;
+            commentEnter(comment);
+        };
+        const commentExitBtn = postBox.querySelector(".commentExitBtn");
+        commentExitBtn.onclick = (e) => {
+            var _a;
+            const btn = e.target;
+            const comment = (_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
+            commentExit(comment);
+        };
+    });
+};

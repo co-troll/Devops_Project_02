@@ -6,32 +6,76 @@ class Posts {
         const { data } = await axios.get(`http://localhost:3000/post/postCount`);
         this.postIds = data;
     }
-    async renderPost() {
-        var _a;
-        const count = this.postIds.length < 10 ? this.postIds.length : 10;
+    async renderPost(startId) {
+        var _a, _b, _c;
+        let count = this.postIds.length < 10 ? this.postIds.length : 10;
+        if (startId == -1) {
+            count--;
+            const post = new Post();
+            const postBox = document.createElement("div");
+            postBox.classList.add("postBox");
+            const id = this.postIds.pop();
+            await post.setPost(id);
+            postBox.innerHTML = await post.getPost();
+            postBox.dataset.id = String(id);
+            console.log(this.postIds);
+            (_a = document.querySelector("#postContainer")) === null || _a === void 0 ? void 0 : _a.append(postBox);
+        }
+        else if (startId) {
+            count--;
+            const post = new Post();
+            const postBox = document.createElement("div");
+            postBox.classList.add("postBox");
+            this.postIds = this.postIds.filter(num => num !== startId);
+            await post.setPost(startId);
+            postBox.innerHTML = await post.getPost();
+            postBox.dataset.id = String(startId);
+            console.log(this.postIds);
+            (_b = document.querySelector("#postContainer")) === null || _b === void 0 ? void 0 : _b.append(postBox);
+        }
         for (let i = 0; i < count; i++) {
             const post = new Post();
             const randint = Math.floor(Math.random() * this.postIds.length + 1);
             const postBox = document.createElement("div");
             postBox.classList.add("postBox");
             const [id] = this.postIds.splice(randint - 1, 1);
-            postBox.innerHTML = await post.getPost(id);
-            postBox.setAttribute("id", String(id));
+            await post.setPost(id);
+            postBox.innerHTML = await post.getPost();
+            postBox.dataset.id = String(id);
             console.log(this.postIds);
-            (_a = document.querySelector("#postContainer")) === null || _a === void 0 ? void 0 : _a.append(postBox);
+            (_c = document.querySelector("#postContainer")) === null || _c === void 0 ? void 0 : _c.append(postBox);
         }
     }
 }
-const postList = document.querySelectorAll(".postBox");
 const postContainer = document.querySelector("#postContainer");
 const postUpBtn = document.querySelector("#upBtn");
 const postDownBtn = document.querySelector("#downBtn");
 const posts = new Posts();
-window.onload = async () => {
+const postRender = async (startId) => {
     var _a;
+    console.log(startId);
+    postContainer.innerHTML = "";
     await posts.init();
-    await posts.renderPost();
+    await posts.renderPost(startId);
     (_a = postContainer.firstElementChild) === null || _a === void 0 ? void 0 : _a.classList.add("select");
+    // comment
+    await commentRender();
+    // postPopup
+    const postModifyBtns = document.querySelectorAll(".modifyBtn");
+    const postDeleteBtns = document.querySelectorAll(".deleteBtn");
+    postModifyBtns.forEach((el) => {
+        el.onclick = async () => {
+            await postPopupEnter(1 /* POSTPOPUPTYPE.MODIFY */);
+        };
+    });
+    postDeleteBtns.forEach((el) => {
+        el.onclick = async () => {
+            await postPopupEnter(2 /* POSTPOPUPTYPE.DELETE */);
+        };
+    });
+};
+window.onload = async () => {
+    await postRender();
 };
 const postDown = async () => {
     var _a, _b, _c, _d;
@@ -89,8 +133,8 @@ document.onwheel = async (e) => {
     _clearTimeOut();
 };
 document.onkeydown = async (e) => {
-    e.preventDefault();
-    if (postEvent || postTimeout) { }
+    let postPopup = document.querySelector("#postPopup");
+    if (postEvent || postTimeout || !postPopup.hidden) { }
     else if (e.key == "ArrowDown") {
         await postDown();
     }
@@ -111,3 +155,24 @@ postUpBtn.onclick = async () => {
     await postUp();
     _clearTimeOut();
 };
+// const instance = axios.create({
+//     baseURL: "http://localhost:3000", // 서버 포트 ex) http://localhost:8080/
+//   });
+//   instance.interceptors.request.use(
+//     (config) => {
+//       const accessToken = Cookies.get("accessToken"); // Cookies를 이용해 accessToken을 가져옵니다.
+//       try {
+//         if (accessToken) {
+//           config.headers["Authorization"] = `Bearer ${accessToken}`;
+//         }
+//         return config;
+//       } catch (err) {
+//         console.error("[_axios.interceptors.request] config : " + err.message);
+//       }
+//       return config;
+//     },
+//     (error) => {
+//       // 요청 에러 직전 호출됩니다.
+//       return Promise.reject(error);
+//     }
+//   );
