@@ -20,6 +20,7 @@ class Posts {
             postBox.dataset.id = String(id);
             console.log(this.postIds);
             (_a = document.querySelector("#postContainer")) === null || _a === void 0 ? void 0 : _a.append(postBox);
+            await this.renderComment(id);
         }
         else if (startId) {
             count--;
@@ -32,6 +33,7 @@ class Posts {
             postBox.dataset.id = String(startId);
             console.log(this.postIds);
             (_b = document.querySelector("#postContainer")) === null || _b === void 0 ? void 0 : _b.append(postBox);
+            await this.renderComment(startId);
         }
         for (let i = 0; i < count; i++) {
             const post = new Post();
@@ -42,8 +44,26 @@ class Posts {
             await post.setPost(id);
             postBox.innerHTML = await post.getPost();
             postBox.dataset.id = String(id);
-            console.log(this.postIds);
             (_c = document.querySelector("#postContainer")) === null || _c === void 0 ? void 0 : _c.append(postBox);
+            await this.renderComment(id);
+        }
+    }
+    async renderComment(postId) {
+        const comment = new Comments();
+        await comment.setComment(postId);
+        for (let i = 0; i < comment.comments.length; i++) {
+            const commentBox = document.createElement("div");
+            commentBox.classList.add("comment");
+            const { html, id } = await comment.getComment(i);
+            commentBox.innerHTML = html;
+            commentBox.dataset.id = String(id);
+            const postBoxes = document.querySelectorAll(".postBox");
+            postBoxes.forEach((el) => {
+                var _a;
+                if (el.dataset.id == String(postId)) {
+                    (_a = el.querySelector(".commentBody")) === null || _a === void 0 ? void 0 : _a.append(commentBox);
+                }
+            });
         }
     }
 }
@@ -60,22 +80,11 @@ const postRender = async (startId) => {
     (_a = postContainer.firstElementChild) === null || _a === void 0 ? void 0 : _a.classList.add("select");
     // comment
     await commentRender();
-    // postPopup
-    const postModifyBtns = document.querySelectorAll(".modifyBtn");
-    const postDeleteBtns = document.querySelectorAll(".deleteBtn");
-    postModifyBtns.forEach((el) => {
-        el.onclick = async () => {
-            await postPopupEnter(1 /* POSTPOPUPTYPE.MODIFY */);
-        };
-    });
-    postDeleteBtns.forEach((el) => {
-        el.onclick = async () => {
-            await postPopupEnter(2 /* POSTPOPUPTYPE.DELETE */);
-        };
-    });
+    // postMenu
+    await postMenuRender();
 };
 window.onload = async () => {
-    await postRender();
+    await postRender(1);
 };
 const postDown = async () => {
     var _a, _b, _c, _d;

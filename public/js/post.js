@@ -4,14 +4,22 @@ class Post {
     async setPost(id) {
         const { data } = await axios.get(`http://localhost:3000/post/${id}`);
         this.postId = data.id;
-        this.postImg = `http://localhost:3000${data.imgPath}` || "";
-        this.userImg = `http://localhost:3000${data.user.imgPath}`;
+        this.postImg = data.imgPath || "";
+        this.userImg = data.user.imgPath;
         this.userName = data.user.nickname;
         this.title = data.title;
         this.content = data.content;
         this.like = data.postLikes;
+        this.commentCount = (await axios.get(`http://localhost:3000/comment/count/${id}`)).data;
     }
-    async createPost(title, content, file) {
+    async createPost(formData) {
+        await axios.post(`http://localhost:3000/post/create`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data;charset=utf-8",
+            },
+            withCredentials: true
+        });
+        await postRender(-1);
     }
     async getPost() {
         const postHtml = `
@@ -29,7 +37,7 @@ class Post {
     <div class="commentBox" hidden>
         <div class="commentHeader">
             <h2>댓글</h2>
-            <span>1</span>
+            <span>${this.commentCount}</span>
             <div class="commentExitBtn">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: inherit; width: 100%; height: 100%;" aria-hidden="true"><path d="m12.71 12 8.15 8.15-.71.71L12 12.71l-8.15 8.15-.71-.71L11.29 12 3.15 3.85l.71-.71L12 11.29l8.15-8.15.71.71L12.71 12z"></path></svg>
@@ -40,8 +48,15 @@ class Post {
             
         </div>
         <div class="commentFooter">
-            <div class="commentUserFooterImg"></div>
-            <input type="text" name="" class="commentFooterInput" placeholder="댓글 추가...">
+            <img class="commentUserFooterImg" src="" alt="">
+            <div>
+                <textarea name="" spellcheck="false" class="commentFooterInput" placeholder="댓글 추가..." rows="1"></textarea>
+                <div class="commentFooterInputBtns">
+                    <button class="commentFooterInputBtn" disabled>
+                        답글
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="postMenu">
@@ -51,7 +66,7 @@ class Post {
             </div>
             <span class="menuname">${this.like}</span>
         </div>
-        <div class="menuBtn unlikeBtn">
+        <div class="menuBtn dislikeBtn">
             <div class="menuImg">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: inherit; width: 100%; height: 100%;" aria-hidden="true"><path d="M16 3v11.718c0 .834-.26 1.647-.745 2.325L11 23l-.551-.331c-1.153-.691-1.705-2.065-1.351-3.362L10 16H4.808c-.827 0-1.609-.376-2.125-1.022-.711-.888-.795-2.125-.209-3.101L3 11l-.165-.413c-.519-1.296-.324-2.769.514-3.885L3.5 6.5V6c0-1.657 1.343-3 3-3H16Zm3 12c1.105 0 2-.895 2-2V5c0-1.105-.895-2-2-2h-2v12h2Z"></path></svg>
             </div>
@@ -61,7 +76,7 @@ class Post {
             <div class="menuImg">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: inherit; width: 100%; height: 100%;" aria-hidden="true"><path clip-rule="evenodd" d="M21 5c0-1.105-.895-2-2-2H5c-1.105 0-2 .895-2 2v12c0 1.105.895 2 2 2h12l3.146 3.146c.315.315.854.092.854-.353V5ZM7 9c0-.552.448-1 1-1h8c.552 0 1 .448 1 1s-.448 1-1 1H8c-.552 0-1-.448-1-1Zm1 3c-.552 0-1 .448-1 1s.448 1 1 1h5c.552 0 1-.448 1-1s-.448-1-1-1H8Z" fill-rule="evenodd"></path></svg>
             </div>
-            <span class="menuname">1</span>
+            <span class="menuname">${this.commentCount}</span>
         </div>
         <div class="menuBtn modifyBtn">
             <div class="menuImg">
@@ -85,8 +100,45 @@ class Post {
 `;
         return postHtml;
     }
-    async modifyPost() {
+    async modifyPost(id, formData) {
+        await axios.put(`http://localhost:3000/post/${id}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data;charset=utf-8",
+            },
+            withCredentials: true
+        });
+        await postRender(id);
     }
-    async deletePost() {
+    async deletePost(id) {
+        await axios.delete(`http://localhost:3000/post/${id}`, {
+            headers: {},
+            withCredentials: true
+        });
+        await postRender();
     }
 }
+const postMenuRender = async () => {
+    const postLikeBtns = document.querySelectorAll(".likeBtn");
+    const postDisLikeBtns = document.querySelectorAll(".dislikeBtn");
+    const postCommentBtns = document.querySelectorAll(".commentBtn");
+    const postModifyBtns = document.querySelectorAll(".modifyBtn");
+    const postDeleteBtns = document.querySelectorAll(".deleteBtn");
+    postCommentBtns.forEach((el) => {
+        el.onclick = (e) => {
+            var _a;
+            const btn = e.target;
+            const comment = (_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.previousElementSibling;
+            commentEnter(comment);
+        };
+    });
+    postModifyBtns.forEach((el) => {
+        el.onclick = async () => {
+            await postPopupEnter(1 /* POSTPOPUPTYPE.MODIFY */);
+        };
+    });
+    postDeleteBtns.forEach((el) => {
+        el.onclick = async () => {
+            await postPopupEnter(2 /* POSTPOPUPTYPE.DELETE */);
+        };
+    });
+};

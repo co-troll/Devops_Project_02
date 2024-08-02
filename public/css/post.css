@@ -281,6 +281,7 @@ html, body {
 
 .comment {
     display: flex;
+    height: max-content;
 }
 
 .comment > .commentUserImg {
@@ -296,6 +297,7 @@ html, body {
 .comment > .commentDetail {
     display: flex;
     flex-direction: column;
+    flex: 1 0 auto;
 }
 
 .commentDetail > .commentUserName {
@@ -338,7 +340,7 @@ html, body {
     cursor: pointer;
 }
 
-.commentLikeBtn:hover, .commentUnlikeBtn:hover, .commentReplyBtn:hover {
+.commentLikeBtn:hover, .commentUnlikeBtn:hover, .commentReplyBtn:hover, .commentModifyBtn:hover, .commentDeleteBtn:hover {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 18px;
 }
@@ -354,7 +356,7 @@ html, body {
     columns: #606060;
 }
 
-.commentBtnBox > .commentReplyBtn {
+.commentBtnBox > .commentReplyBtn, .commentBtnBox > .commentModifyBtn, .commentBtnBox > .commentDeleteBtn  {
     width: 48px;
     height: 32px;
     display: flex;
@@ -363,6 +365,47 @@ html, body {
     font-size: 12px;
     margin-left: 8px;
     cursor: pointer;
+}
+
+.commentDetail > .commentReplyBox {
+    flex: 1 0 auto;
+    padding: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+}
+
+.commentReplyBox > .commentUserReplyImg {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin-right: 12px;
+    pointer-events: none;
+}
+
+.commentReplyBox > .commentReplyInput {
+    border: none;
+    padding-bottom: 4px;
+    margin-right: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+}
+.commentReplyBox > .commentReplyInputBtn {
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 18px;
+    border: none;
+}
+
+.commentReplyInput:focus {
+    outline: none;
 }
 
 /* reply */
@@ -402,28 +445,53 @@ html, body {
 }
 
 .commentBox > .commentFooter {
-    height: 58px;
+    height: max-content;
     padding: 16px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
 }
 
 .commentFooter > .commentUserFooterImg {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background-color: yellow;
     margin-right: 12px;
     pointer-events: none;
 }
 
-.commentFooter > .commentFooterInput {
+.commentFooter > div {
+    flex: 1 0 auto;
+}
+
+.commentFooter > div > .commentFooterInput {
     border: none;
     padding-bottom: 4px;
     margin-right: 16px;
     border-bottom: 1px solid rgba(0, 0, 0, 1);
     font-size: 14px;
-    flex: 1 0 auto;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+}
+
+.commentFooterInputBtns {
+    display: flex;
+    justify-content: end;
+}
+
+.commentFooterInputBtn {
+    width: 48px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 8px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    border: none;
 }
 
 .commentFooterInput:focus {
