@@ -48,8 +48,8 @@ const submitHandler = async (event) => {
         response = await axios.post(url, data);
     }
     console.log(response);
-    if (response.data) {
-        alert("이미 가입된 계정입니다.")
+    if (!response.data) {
+        alert("이미 가입된 계정입니다.");
     } else {
         location.href = "http://localhost:8000";
     }
@@ -67,13 +67,13 @@ window.onload = () => {
     if (token) {
         oauthType = new URLSearchParams(location.search).get("oauthType");
         document.querySelector("input[name='oauthType']").value = oauthType;
-        const emailForm = document.querySelector(".email-login-form");
-        emailForm.style.display = "none"
+        const _form = document.querySelector(".email-form");
+        _form.style.display = "none";
     }
 }
 
 const logout = async () => {
-    console.log("test ")
+
     const response = await axios.post("http://localhost:3000/user/logout");
     if (response.status === 200) {
         location.reload();
