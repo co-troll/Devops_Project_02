@@ -3,9 +3,9 @@
     "module": "CommonJS",
     "esModuleInterop": true,
     "target": "ES6",
-    "outDir": "dist",
+    "outDir": "js",
     "strict": true,
     "skipLibCheck": true,
   },
-  "include": ["src/**/*"]
+  "include": ["ts/**/*", "axios.d.ts"]
 }

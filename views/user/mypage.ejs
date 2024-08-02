@@ -5,21 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/mypage.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/js/user/mypage.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <h3>MyPage</h3>
+            <h2>MyPage</h2>
         </div>
         <div class="content">
             <div>
-                <form>
+                <form id="form">
                     <div>
-                        <!-- 이미지값이 null이면 기본 이미지 -->
-                        <!-- <img src="/img/user.png" alt=""> -->
+                        <label for="img">
+                            <img id="userImg" src="" alt="이미지 없음">
+                        </label>
+                        <input onchange="changeImg(this)" type="file" id="img" name="file" hidden>
+                    </div>
+                    <div>
+                        <label for="nickname">닉네임</label>
+                        <input type="text" id="nickname" name="nickname">
+                    </div>
+                    <div class="password-wrap">
+                        <label for="password">비밀번호</label>
+                        <input id="password" type="password" name="password">
+                    </div>
+                    <div class="btn-form">
+                        <button id="modifyBtn" type="button" onclick="modify(this)">정보수정</button>
+                        <button id="withdrawalBtn" type="button" onclick="withdrawal(this)">회원탈퇴</button>
                     </div>
                 </form>
             </div>
@@ -27,5 +41,7 @@
         <div class="footer"></div>
     </div>
 </body>
+
+<script src="/js/user/mypage.js"></script>
 
 </html>
