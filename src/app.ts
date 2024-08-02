@@ -12,21 +12,15 @@ app.use(cookie());
 app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(router);
 
-app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:8000"],
-    credentials: true
-}))
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "..", "views"));
 
 
-app.get("/", (req, res) => {
-    // res.send("hi");
-    const { token } = req.cookies;
-    const tokenEmpty = token ? false : true;
-    res.render("index", { tokenEmpty });
-})
+// app.get("/", (req, res) => {
+//     res.redirect("/post");
+// })
 
 app.listen(8000, () => {
     console.log("front server on~");

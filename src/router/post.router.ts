@@ -3,7 +3,9 @@ import { Request, Response, Router } from "express";
 const router: Router = Router();
 
 router.get("/", (req: Request, res: Response) => {
-    res.render("post");
+    const { token } = req.cookies;
+    const tokenExist = token ? true : false;
+    res.render("post", { tokenExist });
 })
 
 export default router;
