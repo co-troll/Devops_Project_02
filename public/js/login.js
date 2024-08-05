@@ -27,7 +27,7 @@ const menu = (el) => {
 }
 
 const mypage = () => {
-    location.href = 'http://3.38.210.194:8000/user/mypage'
+    location.href = 'https://dropdot.shop/user/mypage'
 }
 
 const searchMyPost = async () => {
