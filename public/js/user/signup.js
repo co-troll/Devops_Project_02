@@ -11,7 +11,10 @@ const changeImge = (el) => {
     fileReader.readAsDataURL(el.files[0]);
 }
 const submitHandler = async (event) => {
-    if (emptyCheck()) return alert("필수 값이 입력되지 않았습니다.");
+    if (emptyCheck()) {
+        alert("필수 값이 입력되지 않았습니다.")
+        return;
+    }
 
     const _input = document.querySelector("#userImg");
     const el = event.target;
@@ -51,7 +54,7 @@ const submitHandler = async (event) => {
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
     } else {
-        location.href = "http://localhost:8000/user/signin";
+        location.href = "http://localhost:8000";
     }
 }
 
@@ -76,15 +79,14 @@ window.onload = () => {
     _input.forEach(el => {
         el.onkeyup = (e) => {
             const teg = e.target;
-            const parent = e.target.parentNode
+            const parent = e.target.parentNode.parentNode
             if (teg.value == "") {
                 const _p = document.createElement("p");
-                const _br = document.createElement("br");
                 _p.innerText = "입력된 값이 없습니다.";
                 _p.style.color = 'red';
                 _p.id = 'emptystr';
                 teg.classList.add("is-empty");
-                !parent.querySelector("#emptystr") ? parent.append(_br, _p) : '';
+                !parent.querySelector("#emptystr") ? parent.append(_p) : '';
             } else {
                 teg.classList.contains("is-empty") ? teg.classList.remove("is-empty") : '';
                 parent.querySelector("#emptystr") ? parent.querySelector("#emptystr").remove() : '';
@@ -104,14 +106,19 @@ const logout = async () => {
 const emptyCheck = () => {
     const _input = document.querySelectorAll("input");
     let isEmpty = false;
+    const oauthType = new URLSearchParams(location.search).get("oauthType");
+    console.log()
+    if (oauthType != undefined && document.querySelector("#nickname").value != '') {
+        return false;
+    }
     _input.forEach((el) => {
         try {
-            const value = el.target.value;
-            if (value == '') {
+            const value = el.value;
+            if (el.type != "file" && value == '') {
                 isEmpty = true;
             }
         } catch (error) {
-            console.error(el.tart, error)
+            console.error(el.target, error)
         }
     })
     return isEmpty;

@@ -6,10 +6,13 @@
     align-items: center;
 }
 
+.header {
+    transform: translate(0, -150%);
+}
+
 .header>h2 {
     color: white;
     position: fixed;
-    top: 10%;
     left: 50%;
     white-space: nowrap;
     transform: translate(-50%, -50%);
@@ -23,7 +26,7 @@
     color: black;
     overflow: hidden;
     border-right: 1px solid black;
-    animation: typing 3s steps(100);
+    animation: typing 1s steps(100);
 }
 
 @keyframes typing {
@@ -39,14 +42,12 @@
 
 form {
     display: flex;
-
     justify-content: space-between;
     margin: 10px 0;
 }
 
 .email-login-form>div {
     display: flex;
-    justify-content: space-between;
     margin: 10px 0;
 }
 
@@ -73,6 +74,10 @@ form {
     display: none;
 }
 
+#userImg+span {
+    margin-left: 20px;
+}
+
 .email-form {
     display: flex;
     flex-direction: column;
@@ -81,9 +86,27 @@ form {
 
 .email-form>div {
     margin-top: 10px;
+}
+
+.email-form>div>label {
+    display: inline-block;
+    width: 100px;
+}
+
+.input-form {
+    height: 35px;
+}
+
+.input-form>div:nth-child(1) {
+    width: 300px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#emptystr {
+    padding: 0;
+    margin: 0;
 }
 
 input[type=text],
@@ -93,6 +116,10 @@ input[type=password] {
     outline: none;
     padding: 3px 6px;
     font-size: 100%;
+}
+
+.btn-form {
+    transform: translateY(30%);
 }
 
 button {
@@ -105,7 +132,7 @@ button {
 }
 
 button:hover {
-    background-color: blanchedalmond;
+    background: #def1ff;
 }
 
 .social-login {

@@ -7,8 +7,8 @@
 }
 
 .header {
-    margin-bottom: 80px;
-    display: flex;
+    transform: translate(0, -290%);
+    display: none;
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -36,7 +36,7 @@ form>button {
 }
 
 .loginBtn:hover {
-    background-color: blanchedalmond;
+    background: #def1ff;
 }
 
 input[type=text],
@@ -76,26 +76,18 @@ input[type=password] {
 }
 
 #mainlogo {
-    width: 0px;
+    width: 309px;
     position: absolute;
+    transform: scale(0);
     animation-name: main;
-    animation-duration: 3s;
+    animation-duration: 1s;
 }
 
 @keyframes main {
-    0% {
-        width: 0px;
-    }
-
-    50% {
-        width: 35%;
+    80% {
+        width: 309px;
+        transform: scale(1);
         opacity: 1;
-    }
-
-    100% {
-        width: 35%;
-        opacity: 0;
-
     }
 }
 
