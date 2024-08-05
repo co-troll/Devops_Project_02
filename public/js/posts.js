@@ -8,10 +8,13 @@ class Posts {
     }
     async searchInit(text) {
         const { data } = await axios.get(`http://localhost:3000/post/searchCount?searchTarget=${text}`);
-        console.log(data);
         this.postIds = data;
     }
     async userInit() {
+        const { data } = await axios.get(`http://localhost:3000/post/findPostByUserCount`, {
+            withCredentials: true
+        });
+        this.postIds = data;
     }
     async renderPost(startId) {
         var _a, _b, _c;
