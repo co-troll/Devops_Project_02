@@ -4,7 +4,7 @@ class Comments {
         this.comments = [];
     }
     async setComment(id) {
-        const { data } = await axios.get(`http://localhost:3000/comment/${id}`);
+        const { data } = await axios.get(`http://3.38.210.194:3000/comment/${id}`);
         if (Object.keys(data).includes('status')) {
             return;
         }
@@ -21,13 +21,13 @@ class Comments {
                     likedUserId: el.likedUserId,
                     disLikedUserId: el.dislikedUserId,
                     contentMore: el.content.split("<br>").length - 1 > 4 ? `<span class="commentReadMoreBtn">자세히 보기</span>` : "",
-                    countReplys: (await axios.get(`http://localhost:3000/reply/count/${el.id}`)).data
+                    countReplys: (await axios.get(`http://3.38.210.194:3000/reply/count/${el.id}`)).data
                 });
             }
         }
     }
     async createComment(postId, content) {
-        await axios.post(`http://localhost:3000/comment/createComment`, { postId, content }, {
+        await axios.post(`http://3.38.210.194:3000/comment/createComment`, { postId, content }, {
             withCredentials: true
         });
     }
@@ -89,12 +89,12 @@ class Comments {
         return { html: commentHtml, id: this.comments[index].commentId, countReplys: this.comments[index].countReplys };
     }
     async modifyComment(commentId, content) {
-        await axios.put(`http://localhost:3000/comment/${commentId}`, { content }, {
+        await axios.put(`http://3.38.210.194:3000/comment/${commentId}`, { content }, {
             withCredentials: true
         });
     }
     async deleteComment(commentId) {
-        await axios.delete(`http://localhost:3000/comment/${commentId}`, {
+        await axios.delete(`http://3.38.210.194:3000/comment/${commentId}`, {
             withCredentials: true
         });
     }
@@ -173,7 +173,7 @@ const commentRender = async () => {
                 let count = Number(btn.nextElementSibling.innerHTML) != 0 ? Number(btn.nextElementSibling.innerHTML) - 1 : 0;
                 btn.nextElementSibling.innerHTML = String(count);
             }
-            await axios.post(`http://localhost:3000/comment-likes/like/${comment.dataset.id}`, {}, {
+            await axios.post(`http://3.38.210.194:3000/comment-likes/like/${comment.dataset.id}`, {}, {
                 withCredentials: true
             });
         };
@@ -197,7 +197,7 @@ const commentRender = async () => {
                 btn.classList.remove("selected");
                 btn.querySelector("svg").innerHTML = `<path d="M17,4h-1H6.57C5.5,4,4.59,4.67,4.38,5.61l-1.34,6C2.77,12.85,3.82,14,5.23,14h4.23l-1.52,4.94C7.62,19.97,8.46,21,9.62,21 c0.58,0,1.14-0.24,1.52-0.65L17,14h4V4H17z M10.4,19.67C10.21,19.88,9.92,20,9.62,20c-0.26,0-0.5-0.11-0.63-0.3 c-0.07-0.1-0.15-0.26-0.09-0.47l1.52-4.94l0.4-1.29H9.46H5.23c-0.41,0-0.8-0.17-1.03-0.46c-0.12-0.15-0.25-0.4-0.18-0.72l1.34-6 C5.46,5.35,5.97,5,6.57,5H16v8.61L10.4,19.67z M20,13h-3V5h3V13z"></path>`;
             }
-            await axios.post(`http://localhost:3000/comment-likes/dislike/${comment.dataset.id}`, {}, {
+            await axios.post(`http://3.38.210.194:3000/comment-likes/dislike/${comment.dataset.id}`, {}, {
                 withCredentials: true
             });
         };
