@@ -8,7 +8,12 @@ window.onload = () => {
         header.removeAttribute("hidden");
         content.removeAttribute("hidden");
     }, 1000);
+    const _img = document.querySelector("#logo");
 
+    //console.log(location.protocol + "://" + location.hostname + ":" + location.port)
+    _img.onclick = () => {
+        location.href = location.protocol + "//" + location.hostname + ":" + location.port
+    }
 }
 
 const openKakao = () => {

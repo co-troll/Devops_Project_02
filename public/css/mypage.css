@@ -55,3 +55,16 @@ button {
     border: 1px solid;
     border-radius: 50%;
 }
+
+button {
+    width: 45%;
+    height: 30px;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 100%;
+    box-shadow: 0 0 5px;
+}
+
+button:hover {
+    background-color: blanchedalmond;
+}

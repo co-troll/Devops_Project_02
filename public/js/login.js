@@ -1,24 +1,3 @@
-async function main() {
-    try {
-        const { data } = await axios.post(location.protocol + "//" + location.hostname + ":3000" + "/user/getUserInfo", {}, {
-            withCredentials: true
-        });
-
-        if (data) {
-            const _img = document.querySelector("#userImg");
-
-            const _nickname = document.querySelector("#nickname");
-            _img.src = data.imgPath;
-            _img.style.width = "20px";
-            _img.style.height = "20px";
-            _nickname.innerText = data.nickname
-
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
-main();
 
 const tokenCheck = (token) => {
     if (token) {
