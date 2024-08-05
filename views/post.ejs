@@ -203,7 +203,6 @@
     token = undefined;
     window.onload = async () => {
         try {
-            
             if (!<%= tokenExist %>) {
                 await posts.init();
                 postContainer.innerHTML = "";
@@ -211,7 +210,7 @@
                 postContainer.firstElementChild?.classList.add("select");
                 return 
             }
-            const { data } = await axios.post(location.protocol + "//" + location.hostname + ":3000" + "/user/getUserInfo", {}, {
+            const { data } = await axios.post(`https://testcoffeetree.store/user/getUserInfo`, {}, {
                 withCredentials: true
             });
             if (data) {

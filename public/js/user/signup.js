@@ -53,9 +53,9 @@ const submitHandler = async (event) => {
     console.log(response);
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
-        location.href = "http://3.38.210.194:8000/user/signin";
+        location.href = "https://dropdot.shop/user/signin";
     } else {
-        location.href = "http://3.38.210.194:8000/user/signin";
+        location.href = "https://dropdot.shop/user/signin";
     }
 }
 
