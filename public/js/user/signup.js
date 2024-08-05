@@ -51,7 +51,7 @@ const submitHandler = async (event) => {
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
     } else {
-        location.href = "http://localhost:8000";
+        location.href = "http://localhost:8000/user/signin";
     }
 }
 
