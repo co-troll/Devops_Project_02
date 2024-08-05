@@ -2,7 +2,6 @@
 let token = null;
 let oauthType = null;
 const changeImge = (el) => {
-    console.log(el.files[0])
     const fileReader = new FileReader();
     fileReader.onload = (result) => {
         const img = document.getElementById("img");
@@ -52,7 +51,7 @@ const submitHandler = async (event) => {
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
     } else {
-        location.href = "http://localhost:8000";
+        location.href = "http://localhost:8000/user/signin";
     }
 }
 
@@ -75,11 +74,9 @@ window.onload = () => {
     const _input = document.querySelectorAll("input");
     console.log(_input)
     _input.forEach(el => {
-        console.log(el)
         el.onkeyup = (e) => {
             const teg = e.target;
             const parent = e.target.parentNode
-            console.log(parent)
             if (teg.value == "") {
                 const _p = document.createElement("p");
                 const _br = document.createElement("br");
@@ -108,9 +105,13 @@ const emptyCheck = () => {
     const _input = document.querySelectorAll("input");
     let isEmpty = false;
     _input.forEach((el) => {
-        const value = el.target.value;
-        if (value == '') {
-            isEmpty = true;
+        try {
+            const value = el.target.value;
+            if (value == '') {
+                isEmpty = true;
+            }
+        } catch (error) {
+            console.error(el.tart, error)
         }
     })
     return isEmpty;
