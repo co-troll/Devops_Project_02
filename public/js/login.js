@@ -27,7 +27,7 @@ const menu = (el) => {
 }
 
 const mypage = () => {
-    location.href = 'http://localhost:8000/user/mypage'
+    location.href = 'http://3.38.210.194:8000/user/mypage'
 }
 
 const searchMyPost = async () => {
@@ -47,7 +47,7 @@ const searchMyPost = async () => {
 
 const logout = async () => {
     console.log("test")
-    const response = await axios.post("http://localhost:3000/user/logout", {}, {
+    const response = await axios.post("http://3.38.210.194:3000/user/logout", {}, {
         withCredentials: true
     });
     console.log(response);
