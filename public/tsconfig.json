@@ -7,5 +7,5 @@
     "strict": true,
     "skipLibCheck": true,
   },
-  "include": ["ts/**/*", "axios.d.ts"]
+  "include": ["ts/**/*", "axios.d.ts", "global.d.ts"]
 }

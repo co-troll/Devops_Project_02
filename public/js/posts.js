@@ -6,6 +6,13 @@ class Posts {
         const { data } = await axios.get(`http://localhost:3000/post/postCount`);
         this.postIds = data;
     }
+    async searchInit(text) {
+        const { data } = await axios.get(`http://localhost:3000/post/searchCount?searchTarget=${text}`);
+        console.log(data);
+        this.postIds = data;
+    }
+    async userInit() {
+    }
     async renderPost(startId) {
         var _a, _b, _c;
         let count = this.postIds.length < 10 ? this.postIds.length : 10;
@@ -126,27 +133,27 @@ const postUpBtn = document.querySelector("#upBtn");
 const postDownBtn = document.querySelector("#downBtn");
 const posts = new Posts();
 const postRender = async (startId) => {
-    var _a;
-    console.log(startId);
-    postContainer.innerHTML = "";
-    await posts.init();
     await posts.renderPost(startId);
-    (_a = postContainer.firstElementChild) === null || _a === void 0 ? void 0 : _a.classList.add("select");
     // comment
     await commentRender();
     // reply
     await replyRender();
     // postMenu
     await postMenuRender();
+    // createBtn
+    if (token) {
+        const createBtn = document.querySelector("#createBtn");
+        createBtn.hidden = false;
+    }
 };
-window.onload = async () => {
-    await postRender(1);
-};
+// window.onload = async () => {
+//     await postRender(1);
+//}
 const postDown = async () => {
     var _a, _b, _c, _d;
     let selected = document.querySelector(".postBox.select");
     if ((_b = (_a = postContainer.lastElementChild) === null || _a === void 0 ? void 0 : _a.previousElementSibling) === null || _b === void 0 ? void 0 : _b.classList.contains("select")) {
-        await posts.renderPost();
+        await postRender();
     }
     if (!selected.nextElementSibling)
         return;
@@ -197,6 +204,10 @@ document.onwheel = async (e) => {
     }
     _clearTimeOut();
 };
+document.onmousedown = (e) => {
+    if (e.button == 1)
+        e.preventDefault();
+};
 document.onkeydown = async (e) => {
     var _a;
     let postPopup = document.querySelector("#postPopup");
@@ -204,10 +215,15 @@ document.onkeydown = async (e) => {
     if (postEvent || postTimeout || !postPopup.hidden || !selected.hidden) {
     }
     else if (e.key == "ArrowDown") {
+        e.preventDefault();
         await postDown();
     }
     else if (e.key == "ArrowUp") {
+        e.preventDefault();
         await postUp();
+    }
+    else if (e.key == " ") {
+        e.preventDefault();
     }
     _clearTimeOut();
 };
@@ -223,24 +239,28 @@ postUpBtn.onclick = async () => {
     await postUp();
     _clearTimeOut();
 };
-// const instance = axios.create({
-//     baseURL: "http://localhost:3000", // 서버 포트 ex) http://localhost:8080/
-//   });
-//   instance.interceptors.request.use(
-//     (config) => {
-//       const accessToken = Cookies.get("accessToken"); // Cookies를 이용해 accessToken을 가져옵니다.
-//       try {
-//         if (accessToken) {
-//           config.headers["Authorization"] = `Bearer ${accessToken}`;
-//         }
-//         return config;
-//       } catch (err) {
-//         console.error("[_axios.interceptors.request] config : " + err.message);
-//       }
-//       return config;
-//     },
-//     (error) => {
-//       // 요청 에러 직전 호출됩니다.
-//       return Promise.reject(error);
-//     }
-//   );
+const searchInput = document.querySelector("#searchInput");
+const searchBtn = document.querySelector("#searchBtn");
+searchInput.oninput = () => {
+    if (searchInput.value)
+        searchBtn.disabled = false;
+    else
+        searchBtn.disabled = true;
+};
+searchBtn.onclick = async () => {
+    var _a, _b, _c;
+    try {
+        postContainer.innerHTML = "";
+        const searchInput = document.querySelector("#searchInput");
+        await posts.searchInit(searchInput.value);
+        await postRender();
+        (_a = postContainer.firstElementChild) === null || _a === void 0 ? void 0 : _a.classList.add("select");
+        if (!((_b = document.querySelector(".postBox.select")) === null || _b === void 0 ? void 0 : _b.nextElementSibling))
+            postDownBtn.setAttribute("hidden", "");
+        if (!((_c = document.querySelector(".postBox.select")) === null || _c === void 0 ? void 0 : _c.previousElementSibling))
+            postUpBtn.setAttribute("hidden", "");
+    }
+    catch (error) {
+        console.log(error);
+    }
+};
