@@ -11,11 +11,19 @@
     justify-content: center;
 }
 
+.content {
+    transform: translate(0, -10%);
+}
+
+#logo {
+    transform: translate(0, -290%);
+}
 
 #form>div {
     margin: 10px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 #form>div:nth-child(1) {
@@ -40,6 +48,7 @@ input[type=password] {
 .btn-form {
     display: flex;
     justify-content: space-between;
+    transform: translateY(50%);
 }
 
 button {
@@ -66,5 +75,5 @@ button {
 }
 
 button:hover {
-    background-color: blanchedalmond;
+    background: #def1ff;
 }
