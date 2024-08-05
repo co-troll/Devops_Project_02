@@ -2,22 +2,22 @@ import { Router } from 'express'
 const router = Router();
 
 router.get("/signin", (req, res) => {
-    res.render("user/signin");
-})
-
-router.get("/mypage", (req, res) => {
-    res.render("user/mypage");
-})
-
-router.get("/signup", (req, res) => {
-    const { token } = req.cookies
-    res.render("user/signup");
+    const { token } = req.cookies;
+    const tokenEmpty = !token ? true : false;
+    res.render("user/signin", { tokenEmpty });
 })
 
 router.get("/mypage", (req, res) => {
     const { token } = req.cookies;
-    console.log("yrydyrye")
-    console.log(token)
-    res.render("mypage");
+    const tokenEmpty = !token ? true : false;
+    res.render("user/mypage", { tokenEmpty });
 })
+
+router.get("/signup", (req, res) => {
+    const { token } = req.cookies
+    const tokenEmpty = !token ? true : false;
+    res.render("user/signup", { tokenEmpty });
+})
+
+
 export default router;
