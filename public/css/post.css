@@ -279,11 +279,12 @@ html, body {
     scrollbar-color: #909090 transparent;
 }
 
-.comment {
+.comment, .reply {
     display: flex;
+    height: max-content;
 }
 
-.comment > .commentUserImg {
+.comment > .commentUserImg, .reply > .replyUserImg {
     width: 24px;
     height: 24px;
     background-color: yellow;
@@ -293,18 +294,20 @@ html, body {
     pointer-events: none;
 }
 
-.comment > .commentDetail {
+.comment > .commentDetail, .reply > .replyDetail {
     display: flex;
     flex-direction: column;
+    flex: 1 0 auto;
 }
 
-.commentDetail > .commentUserName {
+.commentDetail > .commentUserName,
+.replyDetail > .replyUserName {
     font-size: 13px;
     margin-bottom: 2px;
 }
 
-.commentDetail > p {
-    max-height: 77px;
+.commentDetail > p, .replyDetail > p {
+    max-height: 76px;
     flex: 1 0 auto;
     font-size: 14px;
     word-break: break-all;
@@ -312,24 +315,25 @@ html, body {
     overflow: hidden;
 }
 
-.commentDetail > span {
+.commentDetail > span, .replyDetail > span {
     font-size: 14px;
     color: #606060;
     cursor: pointer; 
 }
 
-.commentDetail > span:hover {
+.commentDetail > span:hover, .replyDetail > span:hover {
     text-decoration: underline;
 }
 
-.commentDetail > .commentBtnBox {
+.commentDetail > .commentBtnBox, .replyDetail > .replyBtnBox {
     height: 32px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 } 
 
-.commentBtnBox > .commentLikeBtn, .commentBtnBox > .commentUnlikeBtn {
+.commentBtnBox > .commentLikeBtn, .commentBtnBox > .commentUnlikeBtn,
+.replyBtnBox > .replyLikeBtn, .replyBtnBox > .replyUnlikeBtn {
     width: 32px;
     height: 32px;
     display: flex;
@@ -338,23 +342,26 @@ html, body {
     cursor: pointer;
 }
 
-.commentLikeBtn:hover, .commentUnlikeBtn:hover, .commentReplyBtn:hover {
+.commentLikeBtn:hover, .commentUnlikeBtn:hover, .commentReplyBtn:hover, .commentModifyBtn:hover, .commentDeleteBtn:hover,
+.replyLikeBtn:hover, .replyUnlikeBtn:hover, .replyReplyBtn:hover, .replyModifyBtn:hover, .replyDeleteBtn:hover {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 18px;
 }
 
-.commentLikeBtn > div, .commentUnlikeBtn > div {
+.commentLikeBtn > div, .commentUnlikeBtn > div, 
+.replyLikeBtn > div, .replyUnlikeBtn > div {
     width: 24px;
     height: 24px;
 }
 
-.commentBtnBox > .commentLike {
+.commentBtnBox > .commentLike, .replyBtnBox > .replyLike {
     font-size: 12px;
     margin-right: 8px;
     columns: #606060;
 }
 
-.commentBtnBox > .commentReplyBtn {
+.commentBtnBox > .commentReplyBtn, .commentBtnBox > .commentModifyBtn, .commentBtnBox > .commentDeleteBtn,
+.replyBtnBox > .replyReplyBtn, .replyBtnBox > .replyModifyBtn, .replyBtnBox > .replyDeleteBtn  {
     width: 48px;
     height: 32px;
     display: flex;
@@ -365,15 +372,61 @@ html, body {
     cursor: pointer;
 }
 
+.commentDetail > .commentReplyBox, .replyDetail > .replyReplyBox  {
+    flex: 1 0 auto;
+    padding: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+}
+
+.commentReplyBox > .commentUserReplyImg, .replyReplyBox > .replyUserReplyImg {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin-right: 12px;
+    pointer-events: none;
+}
+
+.commentReplyBox > .commentReplyInput, .replyReplyBox > .replyReplyInput {
+    border: none;
+    padding-bottom: 4px;
+    margin-right: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+    flex: 1 0 auto;
+}
+.commentReplyBox > .commentReplyInputBtn, .replyReplyBox > .replyReplyInputBtn {
+    width: 48px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 18px;
+    border: none;
+}
+
+.commentReplyInput:focus, .replyReplyInput:focus {
+    outline: none;
+}
+
 /* reply */
 
-.commentBody > .reply {
+.commentBody > .replyBox {
     padding-left: 32px;
     display: flex;
     flex-direction: column;
+    height: 36px;
+    overflow: hidden;
+
 }
 
-.reply > .replyViewBtn {
+.replyBox > .replyViewBtn {
     width: max-content;
     height: 36px;
     display: flex;
@@ -382,9 +435,11 @@ html, body {
     color: #065fd4;
     cursor: pointer;
     padding: 12px;
+    border: none;
+    background-color: transparent;
 }
 
-.reply > .replyViewBtn:hover {
+.replyBox > .replyViewBtn:hover {
     background: #def1ff;
     border-radius: 18px;
 }
@@ -402,28 +457,53 @@ html, body {
 }
 
 .commentBox > .commentFooter {
-    height: 58px;
+    height: max-content;
     padding: 16px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
 }
 
 .commentFooter > .commentUserFooterImg {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background-color: yellow;
     margin-right: 12px;
     pointer-events: none;
 }
 
-.commentFooter > .commentFooterInput {
+.commentFooter > div {
+    flex: 1 0 auto;
+}
+
+.commentFooter > div > .commentFooterInput {
     border: none;
     padding-bottom: 4px;
     margin-right: 16px;
     border-bottom: 1px solid rgba(0, 0, 0, 1);
     font-size: 14px;
-    flex: 1 0 auto;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+}
+
+.commentFooterInputBtns {
+    display: flex;
+    justify-content: end;
+}
+
+.commentFooterInputBtn {
+    width: 48px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 8px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    border: none;
 }
 
 .commentFooterInput:focus {
@@ -462,6 +542,18 @@ html, body {
     cursor: pointer;
     padding-top: 12px;
     font-size: 14px;
+}
+
+.likeBtn:hover > .menuImg, .dislikeBtn:hover > .menuImg, .commentBtn:hover > .menuImg, .modifyBtn:hover > .menuImg, .deleteBtn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.likeBtn.selected > .menuImg, .dislikeBtn.selected > .menuImg {
+    background-color: rgb(0, 0, 0);
+}
+
+.likeBtn.selected > .menuImg > svg, .dislikeBtn.selected > .menuImg > svg {
+    fill: white;
 }
 
 .menuBtn > .menuImg {
