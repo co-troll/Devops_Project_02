@@ -47,7 +47,7 @@ const searchMyPost = async () => {
 
 const logout = async () => {
     console.log("test")
-    const response = await axios.post("http://3.38.210.194:3000/user/logout", {}, {
+    const response = await axios.post("https://testcoffeetree.store/user/logout", {}, {
         withCredentials: true
     });
     console.log(response);
