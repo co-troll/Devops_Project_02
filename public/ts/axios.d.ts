@@ -8,6 +8,7 @@ declare namespace axios {
       data?: any;
       timeout?: number;
       responseType?: string;
+      withCredentials?: boolean;
     }
   
     interface AxiosResponse<T = any> {

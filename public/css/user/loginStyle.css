@@ -6,15 +6,24 @@
     align-items: center;
 }
 
+.header {
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .content label {
     font-size: 100%;
-    margin: 0 20px;
+    margin-right: 20px;
 }
 
 form>div {
     display: flex;
     justify-content: space-between;
-    margin: 10px 0;
+    align-items: center;
+    margin: 20px 0;
 }
 
 form>button {
@@ -36,7 +45,7 @@ input[type=password] {
     height: 20px;
     outline: none;
     padding: 3px 6px;
-    font-size: 100%;
+    font-size: 14px;
 }
 
 .social-login {
@@ -64,4 +73,32 @@ input[type=password] {
 .social-login-type>div>img {
     box-shadow: 0 0 10px;
     border-radius: 50%;
+}
+
+#mainlogo {
+    width: 0px;
+    position: absolute;
+    animation-name: main;
+    animation-duration: 3s;
+}
+
+@keyframes main {
+    0% {
+        width: 0px;
+    }
+
+    50% {
+        width: 35%;
+        opacity: 1;
+    }
+
+    100% {
+        width: 35%;
+        opacity: 0;
+
+    }
+}
+
+.new-account {
+    margin: 20px;
 }

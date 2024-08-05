@@ -9,6 +9,8 @@ html, body {
     height: 100%;
 }
 
+/* header */
+
 #header {
     width: 100%;
     height: 56px;
@@ -100,6 +102,8 @@ html, body {
     pointer-events: none;
 }
 
+/* body */
+
 #body {
     width: 100%;
     height: 100%;
@@ -148,7 +152,10 @@ html, body {
 }
 
 .post > img {
+    margin: 0 auto;
+    max-height: 30%;
     margin: 12px;
+    object-fit: contain;
 }
 
 .post > .postDetail {
@@ -191,6 +198,8 @@ html, body {
     white-space: pre-line;
 }
 
+/* comment */
+
 .post > .commentBox {
     min-height: 560px;
     height: calc(100vh - 100px);
@@ -211,7 +220,7 @@ html, body {
     z-index: 2;
 }
 
-.commentBox[status="hidden"] {
+.commentBox[hidden] {
     pointer-events: none;
     transition: all 0.5s;
     opacity: 0;
@@ -356,6 +365,8 @@ html, body {
     cursor: pointer;
 }
 
+/* reply */
+
 .commentBody > .reply {
     padding-left: 32px;
     display: flex;
@@ -472,6 +483,14 @@ html, body {
     background-color: yellow;
     border-radius: 5px;
     pointer-events: none;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.menuUserImg > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #btnBox {
@@ -531,4 +550,151 @@ html, body {
 #createBtn {
     position: absolute;
     bottom: 32px;
+}
+
+/* postCreatePopup */
+
+#postPopup {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#postPopup[hidden] {
+    display: none;
+}
+
+#postPopup > #postPopupBack {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#postPopup > #postPopupBox {
+    min-height: 560px;
+    height: calc(100vh - 100px);
+    aspect-ratio: 9 / 16;
+    background-color: beige;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    position:  relative;
+}
+
+#postPopupBox > #postPopupHeader {
+    height: 56px;
+    display: flex;
+    padding: 4px 16px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#postPopupHeader > h2 {
+    font-size: 20px;
+}
+
+#postPopupHeader > #postPopupExitBtn {
+    margin-left: auto;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#postPopupExitBtn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+}
+
+#postPopupExitBtn > div {
+    pointer-events: none;
+    width: 24px;
+    height: 24px;
+}
+
+#postPopupBox > img {
+    margin: 12px auto;
+    max-height: 30%;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+#postPopupBox > #postPopupDetail {
+    flex : 1 0 auto;
+    margin: 12px;
+    background-color: beige;
+    overflow: hidden scroll;
+    overflow-y: auto;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+}
+
+#postPopupDetail > .postPopupUser {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.postPopupUser > .postPopupUserImg {
+    width: 40px;
+    height: 40px;
+    background-color: yellow;
+    border-radius: 50%;
+    margin-right: 12px;
+    pointer-events: none;
+}
+
+.postPopupUser > .postPopupUserName {
+    font-weight: bold;
+}
+
+#postPopupDetail > input {
+    font-size: 24px;
+    margin: 6px 0;
+    padding: 3px 6px;
+    width: 100%;
+}
+
+#postPopupDetail > textarea {
+    word-break: break-all;
+    white-space: pre-line;
+    font-size: 16px;
+    padding: 3px 6px;
+    width: 100%;
+    resize: none;
+    flex : 1 0 auto;
+}
+
+#postPopupBox > #postPopupDoneBtn {
+    min-width: 98px;
+    height: 36px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 17px;
+    margin: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#postPopupDoneBtn:hover {
+    background: #def1ff;
+    border: none;
+}
+
+#postPopupDoneBtn > span {
+    pointer-events: none;
 }
