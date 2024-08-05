@@ -19,7 +19,7 @@ window.onload = async () => {
         _pw.style.display = "none";
 }
 const modify = async (el) => {
-    console.log(info)
+    if (!confirm("회원정보를 수정하시겠습니까?")) return;
     const _form = document.querySelector("#form");
     const { file, password, nickname } = _form;
 
@@ -59,7 +59,7 @@ const changeImg = (el) => {
 
 const withdrawal = async (el) => {
     try {
-
+        if (!confirm("탈퇴하시겠습니까?")) return;
         const result = await axios.delete("http://localhost:3000/user/delete", {
             withCredentials: true
         })

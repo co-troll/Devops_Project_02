@@ -1,16 +1,14 @@
 
 window.onload = () => {
-
-
     setTimeout(() => {
         const header = document.querySelector(".header");
         const content = document.querySelector(".content");
-        header.removeAttribute("hidden");
-        content.removeAttribute("hidden");
-    }, 1000);
+        header.style.display = "flex";
+        content.hidden = false;
+    }, 800);
     const _img = document.querySelector("#logo");
 
-    //console.log(location.protocol + "://" + location.hostname + ":" + location.port)
+
     _img.onclick = () => {
         location.href = location.protocol + "//" + location.hostname + ":" + location.port
     }
