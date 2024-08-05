@@ -33,7 +33,7 @@ const submitHandler = async (event) => {
         formData.append("nickname", el.nickname.value);
         formData.append("oauthType", el.oauthType.value);
         contentType = "multipart/form-data"
-        response = await axios.post("http://testcoffeetree.store:3000/user/createUser", formData, {
+        response = await axios.post("http://3.38.210.194:3000/user/createUser", formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             }
@@ -46,7 +46,7 @@ const submitHandler = async (event) => {
         data.oauthType = el.oauthType.value;
         contentType = "application/json"
         const query = token ? `?token=${token}` : '';
-        const url = 'http://testcoffeetree.store:3000/user/createUser' + query;
+        const url = 'http://3.38.210.194:3000/user/createUser' + query;
         console.log(url)
         response = await axios.post(url, data);
     }
@@ -54,7 +54,7 @@ const submitHandler = async (event) => {
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
     } else {
-        location.href = "https://testcoffeetree.store";
+        location.href = "http://3.38.210.194:8000";
     }
 }
 
@@ -97,7 +97,7 @@ window.onload = () => {
 }
 
 const logout = async () => {
-    const response = await axios.post("http://localhost:3000/user/logout");
+    const response = await axios.post("http://3.38.210.194:3000/user/logout");
     if (response.status === 200) {
         location.reload();
     }
@@ -126,10 +126,10 @@ const emptyCheck = () => {
 
 const openKakao = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://localhost:3000/auth/kakao", "_blank", option);
+    window.open("http://3.38.210.194:3000/auth/kakao", "_blank", option);
 }
 
 const openGoogle = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://localhost:3000/auth/google", "_blank", option);
+    window.open("http://3.38.210.194:3000/auth/google", "_blank", option);
 }
