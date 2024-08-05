@@ -35,7 +35,7 @@ class Post {
     constructor() {}
 
     async setPost(id: number) {
-        const { data }: {data: IPost} = await axios.get(`http://3.38.210.194:3000/post/${id}`);
+        const { data }: {data: IPost} = await axios.get(`https://testcoffeetree.store/post/${id}`);
         this.postId = data.id;
         this.postImg = data.imgPath || "";
         this.userId = data.userId;
@@ -46,11 +46,11 @@ class Post {
         this.like = data.postLikes;
         this.likedUserId = data.likedUserId;
         this.disLikedUserId = data.dislikedUserId;
-        this.commentCount = (await axios.get(`http://3.38.210.194:3000/comment/count/${id}`)).data;
+        this.commentCount = (await axios.get(`https://testcoffeetree.store/comment/count/${id}`)).data;
     }
     
     // async setSearchPost(text: string) {
-    //     const { data }: {data: IPost} = await axios.get(`http://3.38.210.194:3000/post/${id}`);
+    //     const { data }: {data: IPost} = await axios.get(`https://testcoffeetree.store/post/${id}`);
     //     this.postId = data.id;
     //     this.postImg = data.imgPath || "";
     //     this.userId = data.userId;
@@ -61,11 +61,11 @@ class Post {
     //     this.like = data.postLikes;
     //     this.likedUserId = data.likedUserId;
     //     this.disLikedUserId = data.dislikedUserId;
-    //     this.commentCount = (await axios.get(`http://3.38.210.194:3000/comment/count/${id}`)).data;
+    //     this.commentCount = (await axios.get(`https://testcoffeetree.store/comment/count/${id}`)).data;
     // }
 
     async createPost(formData: FormData) {
-        await axios.post(`http://3.38.210.194:3000/post/create`, formData, {
+        await axios.post(`https://testcoffeetree.store/post/create`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
@@ -161,7 +161,7 @@ class Post {
     }
 
     async modifyPost(id: number, formData: FormData) {
-        await axios.put(`http://3.38.210.194:3000/post/${id}`, formData, {
+        await axios.put(`https://testcoffeetree.store/post/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
@@ -171,7 +171,7 @@ class Post {
     }
 
     async deletePost(id: number) {
-        await axios.delete(`http://3.38.210.194:3000/post/${id}`, {
+        await axios.delete(`https://testcoffeetree.store/post/${id}`, {
             headers: {
             },
             withCredentials: true
@@ -205,7 +205,7 @@ const postMenuRender = async () => {
                 let count = Number(btn.lastElementChild!.innerHTML) != 0 ? Number(btn.lastElementChild!.innerHTML) - 1: 0;
                 btn.lastElementChild!.innerHTML = String(count);
             }
-            await axios.post(`http://3.38.210.194:3000/post-likes/like/${postBox.dataset.id}`, {}, {
+            await axios.post(`https://testcoffeetree.store/post-likes/like/${postBox.dataset.id}`, {}, {
                 withCredentials: true
             });
         }
@@ -227,7 +227,7 @@ const postMenuRender = async () => {
             else {
                 btn.classList.remove("selected");
             }
-            await axios.post(`http://3.38.210.194:3000/post-likes/dislike/${postBox.dataset.id}`, {}, {
+            await axios.post(`https://testcoffeetree.store/post-likes/dislike/${postBox.dataset.id}`, {}, {
                 withCredentials: true
             });
         }

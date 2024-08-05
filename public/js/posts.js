@@ -3,15 +3,15 @@ class Posts {
     constructor() {
     }
     async init() {
-        const { data } = await axios.get(`http://3.38.210.194:3000/post/postCount`);
+        const { data } = await axios.get(`https://testcoffeetree.store/post/postCount`);
         this.postIds = data;
     }
     async searchInit(text) {
-        const { data } = await axios.get(`http://3.38.210.194:3000/post/searchCount?searchTarget=${text}`);
+        const { data } = await axios.get(`https://testcoffeetree.store/post/searchCount?searchTarget=${text}`);
         this.postIds = data;
     }
     async userInit() {
-        const { data } = await axios.get(`http://3.38.210.194:3000/post/findPostByUserCount`, {
+        const { data } = await axios.get(`https://testcoffeetree.store/post/findPostByUserCount`, {
             withCredentials: true
         });
         this.postIds = data;

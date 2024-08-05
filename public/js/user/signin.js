@@ -16,10 +16,10 @@ window.onload = () => {
 
 const openKakao = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://3.38.210.194:3000/auth/kakao", "_blank", option);
+    window.open("https://testcoffeetree.store/auth/kakao", "_blank", option);
 }
 
 const openGoogle = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://3.38.210.194:3000/auth/google", "_blank", option);
+    window.open("https://testcoffeetree.store/auth/google", "_blank", option);
 }
