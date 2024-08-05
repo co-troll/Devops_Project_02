@@ -10,6 +10,16 @@
     <link rel="stylesheet" href="/css/user/google_login.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/js/user/signup.js"></script>
+    <script>
+        const tokenCheck = () => {
+            if (!<%= tokenEmpty %>) {
+                console.log()
+                alert("이미 로그인 되어있습니다.");
+                history.back();
+            }
+        }
+        tokenCheck();
+    </script>
 </head>
 
 <body>
@@ -18,7 +28,9 @@
     <!-- nickname -->
     <!-- img -->
     <div class="container">
-        <div class="header"></div>
+        <div class="header">
+            <h2>가입을 환영합니다</h2>
+        </div>
         <div class="content">
             <form action="" method="post" id="form">
                 <div class="email-login-form">
@@ -51,6 +63,7 @@
                 </div>
             </form>
             <div class="social-login">
+                <h4>소셜 회원가입</h4>
                 <div class="social-login-type">
                     <div class="kakao-login" onclick="openKakao();">
                         <img src="http://localhost:3000/imgs/user/kakao_logo.png">

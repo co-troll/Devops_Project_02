@@ -58,8 +58,15 @@ const changeImg = (el) => {
 }
 
 const withdrawal = async (el) => {
-    const id = el.dataset.id
-    console.log(id)
-    const result = await axios.delete("http://localhost:3000/user/delete", { data: { id } })
-    console.log(result);
+    try {
+
+        const result = await axios.delete("http://localhost:3000/user/delete", {
+            withCredentials: true
+        })
+        if (result.status == 200) {
+            location.href = location.origin
+        }
+    } catch (error) {
+        console.error(error)
+    }
 }

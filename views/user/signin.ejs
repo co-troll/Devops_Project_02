@@ -10,16 +10,28 @@
     <link rel="stylesheet" href="/css/user/google_login.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/js/user/signin.js"></script>
+    <script>
+        const tokenCheck = () => {
+            if (!<%= tokenEmpty %>) {
+                console.log()
+                alert("이미 로그인 되어있습니다.");
+                history.back();
+            }
+        }
+        tokenCheck();
+    </script>
 </head>
 
 <body>
     <div class="container">
-        <div class="header">
-            <img src="http://localhost:3000/imgs/user/youtube.png" alt="">
+        <img id='mainlogo' src="http://127.0.0.1:3000/imgs/user/youtubeShorts.png" alt="">
+        <div class="header" hidden>
+            <img id="logo" src="http://localhost:3000/imgs/user/youtube.png" alt="">
         </div>
-        <div class="content">
+        <div class="content" hidden>
+
             <div>
-                <form action="http://localhost:3000/user/signin" method="post">
+                <form action="http://localhost:3000/user/signin" method="post" id="form">
                     <input type="text" value="email" name="oauthType" hidden>
                     <div>
                         <label for="">ID</label>
@@ -43,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="new-account">
                 <a href="/user/signup">회원이 아니신가요?</a>
             </div>
         </div>

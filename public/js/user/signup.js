@@ -2,7 +2,6 @@
 let token = null;
 let oauthType = null;
 const changeImge = (el) => {
-    console.log(el.files[0])
     const fileReader = new FileReader();
     fileReader.onload = (result) => {
         const img = document.getElementById("img");
@@ -12,6 +11,8 @@ const changeImge = (el) => {
     fileReader.readAsDataURL(el.files[0]);
 }
 const submitHandler = async (event) => {
+    if (emptyCheck()) return alert("필수 값이 입력되지 않았습니다.");
+
     const _input = document.querySelector("#userImg");
     const el = event.target;
     let data = null;
@@ -35,7 +36,6 @@ const submitHandler = async (event) => {
             }
         });
     } else {
-        console.log("test1")
         data = {}
         data.loginId = el.loginId.value;
         data.password = el.password.value;
@@ -51,7 +51,7 @@ const submitHandler = async (event) => {
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
     } else {
-        location.href = "http://localhost:8000";
+        location.href = "http://localhost:8000/user/signin";
     }
 }
 
@@ -70,14 +70,51 @@ window.onload = () => {
         const _form = document.querySelector(".email-form");
         _form.style.display = "none";
     }
+
+    const _input = document.querySelectorAll("input");
+    console.log(_input)
+    _input.forEach(el => {
+        el.onkeyup = (e) => {
+            const teg = e.target;
+            const parent = e.target.parentNode
+            if (teg.value == "") {
+                const _p = document.createElement("p");
+                const _br = document.createElement("br");
+                _p.innerText = "입력된 값이 없습니다.";
+                _p.style.color = 'red';
+                _p.id = 'emptystr';
+                teg.classList.add("is-empty");
+                !parent.querySelector("#emptystr") ? parent.append(_br, _p) : '';
+            } else {
+                teg.classList.contains("is-empty") ? teg.classList.remove("is-empty") : '';
+                parent.querySelector("#emptystr") ? parent.querySelector("#emptystr").remove() : '';
+            }
+        }
+    })
+
 }
 
 const logout = async () => {
-
     const response = await axios.post("http://localhost:3000/user/logout");
     if (response.status === 200) {
         location.reload();
     }
+}
+
+const emptyCheck = () => {
+    const _input = document.querySelectorAll("input");
+    let isEmpty = false;
+    _input.forEach((el) => {
+        try {
+            const value = el.target.value;
+            if (value == '') {
+                isEmpty = true;
+            }
+        } catch (error) {
+            console.error(el.tart, error)
+        }
+    })
+    return isEmpty;
 }
 
 const openKakao = () => {
