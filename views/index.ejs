@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const logout = async () => {
+            console.log("test")
+            const response = await axios.post("http://localhost:3000/user/logout", {}, {
+                withCredentials: true
+            });
+            console.log(response);
+            document.body.replaceWith(response.data);
+            if (response.status === 200) {
+                location.reload();
+            }
+        }
+        const mypage = () => {
+            location.href = 'http://localhost:8000/user/mypage';
+        }
+    </script>
+</head>
+
+<body>
+    <% if(!tokenEmpty){%>
+        <div>
+            <span onclick="logout()">로그아웃</span>
+            <span onclick="mypage()">마이페이지</span>
+        </div>
+        <%}else{%>
+            <div>
+                <span onclick="location.href='http://localhost:8000/user/signin'">로그인</span>
+            </div>
+            <%}%>
+</body>
+
+</html>

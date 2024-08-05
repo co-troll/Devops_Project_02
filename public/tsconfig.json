@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es2017",
+    "outDir": "js",
+    "strict": true,
+    "skipLibCheck": true,
+  },
+  "include": ["ts/**/*", "axios.d.ts", "global.d.ts"]
+}

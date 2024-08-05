@@ -1,0 +1,44 @@
+.login-in {
+    position: relative;
+    right: 20px;
+}
+
+.login-in>#loginBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.logo {
+    width: 24px;
+}
+
+.user-menu {
+    /* display: none; */
+    margin: 10px;
+    width: 150px;
+    height: 0px;
+    position: absolute;
+    transform: translateX(-18%);
+
+    transition: height 1s;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.user-menu.is-open {
+    height: 90px;
+    /* display: block; */
+}
+
+.user-menu>div {
+    width: 150px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.user-menu>div:hover {
+    background-color: rgb(228, 228, 228);
+    cursor: pointer;
+}
