@@ -10,16 +10,17 @@ class Comments {
         }
         else {
             const commentList = data;
-            commentList.forEach(async (el) => {
+            for (let el of commentList) {
                 this.comments.push({
                     commentId: el.id,
                     userImg: el.user.imgPath,
                     userName: el.user.nickname,
                     content: el.content,
                     like: el.commentLikes,
-                    contentMore: el.content.split("<br>").length - 1 > 3 ? `<span class="commentReadMoreBtn">자세히 보기</span>` : ""
+                    contentMore: el.content.split("<br>").length - 1 > 4 ? `<span class="commentReadMoreBtn">자세히 보기</span>` : "",
+                    countReplys: (await axios.get(`http://localhost:3000/reply/count/${el.id}`)).data
                 });
-            });
+            }
         }
     }
     async createComment(postId, content) {
@@ -32,8 +33,7 @@ class Comments {
 <img class="commentUserImg" src="${this.comments[index].userImg}" alt="">
 <div class="commentDetail">
     <h2 class="commentUserName">${this.comments[index].userName}</h2>
-    <p>${this.comments[index].content}
-    </p>
+    <p>${this.comments[index].content}</p>
     ${this.comments[index].contentMore}
     <div class="commentBtnBox">
         <div class="commentLikeBtn">
@@ -75,7 +75,7 @@ class Comments {
 </div>
 
 `;
-        return { html: commentHtml, id: this.comments[index].commentId };
+        return { html: commentHtml, id: this.comments[index].commentId, countReplys: this.comments[index].countReplys };
     }
     async modifyComment(commentId, content) {
         await axios.put(`http://localhost:3000/comment/${commentId}`, { content }, {
@@ -165,6 +165,11 @@ const commentRender = async () => {
     commentReplyBtn.forEach((el) => {
         el.onclick = () => {
             const commentDetail = el.closest(".commentDetail");
+            const commentBody = el.closest(".commentBody");
+            if (commentBody.querySelector(".commentReplyBox"))
+                return;
+            if (commentBody.querySelector(".replyReplyBox"))
+                return;
             const commentReply = document.createElement("div");
             const commentUserReplyImg = document.createElement("img");
             const commentReplyInput = document.createElement("textarea");
@@ -179,17 +184,121 @@ const commentRender = async () => {
             commentReplyInput.rows = 1;
             commentReplyInput.oninput = () => {
                 commentReplyInput.style.height = 'auto';
-                commentReplyInput.style.height = el.scrollHeight + 'px';
+                commentReplyInput.style.height = commentReplyInput.scrollHeight + 'px';
                 commentReplyCheckText();
             };
             commentReplyInputBtn.disabled = true;
             commentReplyInputBtn.innerHTML = "답글";
+            commentReplyInputBtn.onclick = async (e) => {
+                var _a;
+                let replys = new Replys();
+                let comment = commentReplyInputBtn.closest(".comment");
+                let commentId = comment.dataset.id;
+                const replyBox = document.createElement("div");
+                replyBox.classList.add("replyBox");
+                const replyViewBtn = document.createElement("button");
+                replyViewBtn.classList.add("replyViewBtn");
+                replyViewBtn.hidden = false;
+                replyBox.style.height = "max-content";
+                replyViewBtn.onclick = (e) => {
+                    const arrow = replyViewBtn.querySelector(".replyViewArrow");
+                    if (replyViewBtn.hidden) {
+                        arrow.style.transform = "rotate(180deg)";
+                        replyViewBtn.hidden = false;
+                        replyBox.style.height = "max-content";
+                    }
+                    else {
+                        arrow.removeAttribute("style");
+                        replyBox.removeAttribute("style");
+                        replyViewBtn.hidden = true;
+                    }
+                };
+                const replyHtml = `
+<div class="replyViewArrow">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+        width="24" focusable="false"
+        style="pointer-events: none; display: inherit; width: 100%; height: 100%;"
+        aria-hidden="true">
+        <path d="m18 9.28-6.35 6.35-6.37-6.35.72-.71 5.64 5.65 5.65-5.65z"></path>
+    </svg>
+</div>
+<span>답글 <b>${1}</b>개</span>
+
+`;
+                try {
+                    await replys.createReply(Number(commentId), commentReplyInput.value.replace(/\n/g, "<br>"));
+                    await replys.setReplys(Number(commentId));
+                    const reply = document.createElement("div");
+                    reply.classList.add("reply");
+                    console.log(replys.replys);
+                    const { html, id } = await replys.getReply(replys.replys.length - 1);
+                    reply.innerHTML = html;
+                    reply.dataset.id = String(id);
+                    if (!comment.nextElementSibling.classList.contains("replyBox")) {
+                        console.log(1);
+                        replyViewBtn.innerHTML = replyHtml;
+                        replyBox.append(replyViewBtn);
+                        comment.after(replyBox);
+                    }
+                    (_a = comment.nextElementSibling) === null || _a === void 0 ? void 0 : _a.append(reply);
+                    commentReply.remove();
+                    await replyRender();
+                }
+                catch (error) {
+                    console.log(1);
+                    commentReply.remove();
+                }
+            };
             commentReply.append(commentUserReplyImg, commentReplyInput, commentReplyInputBtn);
             commentDetail.append(commentReply);
         };
     });
     commentModifyBtn.forEach((el) => {
         el.onclick = () => {
+            var _a;
+            const commentDetail = el.closest(".commentDetail");
+            const commentBody = el.closest(".commentBody");
+            if (commentBody.querySelector(".commentReplyBox"))
+                return;
+            if (commentBody.querySelector(".replyReplyBox"))
+                return;
+            const commentReply = document.createElement("div");
+            const commentUserReplyImg = document.createElement("img");
+            const commentReplyInput = document.createElement("textarea");
+            const commentReplyInputBtn = document.createElement("button");
+            commentReply.classList.add("commentReplyBox");
+            commentUserReplyImg.classList.add("commentUserReplyImg");
+            commentReplyInput.classList.add("commentReplyInput");
+            commentReplyInputBtn.classList.add("commentReplyInputBtn");
+            commentUserReplyImg.src = "";
+            commentReplyInput.spellcheck = false;
+            commentReplyInput.value = (_a = commentDetail.querySelector("p")) === null || _a === void 0 ? void 0 : _a.innerHTML.replace(/<br>/g, "\n");
+            commentReplyInput.rows = 1;
+            commentReplyInput.oninput = () => {
+                commentReplyInput.style.height = 'auto';
+                commentReplyInput.style.height = commentReplyInput.scrollHeight + 'px';
+                commentReplyCheckText();
+            };
+            commentReplyInputBtn.disabled = true;
+            commentReplyInputBtn.innerHTML = "수정";
+            commentReplyInputBtn.onclick = async (e) => {
+                let comments = new Comments();
+                const target = e.target;
+                const comment = target.closest(".comment");
+                try {
+                    await comments.modifyComment(Number(comment.dataset.id), commentReplyInput.value.replace(/\n/g, "<br>"));
+                    commentDetail.querySelector("p").innerHTML = commentReplyInput.value.replace(/<br>/g, "\n");
+                    commentDetail.querySelector("p").style.maxHeight = "max-content";
+                    commentReply.remove();
+                }
+                catch (error) {
+                    commentReply.remove();
+                }
+            };
+            commentReply.append(commentUserReplyImg, commentReplyInput, commentReplyInputBtn);
+            commentDetail.append(commentReply);
+            commentReplyInput.style.height = 'auto';
+            commentReplyInput.style.height = commentReplyInput.scrollHeight + 'px';
         };
     });
     commentDeleteBtn.forEach((el) => {
@@ -216,18 +325,23 @@ const commentRender = async () => {
             const postBox = el.closest(".postBox");
             const postId = postBox.dataset.id;
             const commentValue = commentInput.value.replace(/\n/g, "<br>");
-            await comments.createComment(Number(postId), commentValue);
+            try {
+                await comments.createComment(Number(postId), commentValue);
+                const commentBox = document.createElement("div");
+                commentBox.classList.add("comment");
+                await comments.setComment(Number(postId));
+                const { html, id } = await comments.getComment(comments.comments.length - 1);
+                console.log(html, id);
+                commentBox.innerHTML = html;
+                commentBox.dataset.id = String(id);
+                const commentBody = postBox.querySelector(".commentBody");
+                commentBody.append(commentBox);
+                await commentRender();
+            }
+            catch (error) {
+                commentInput.value = "";
+            }
             commentInput.value = "";
-            const commentBox = document.createElement("div");
-            commentBox.classList.add("comment");
-            await comments.setComment(Number(postId));
-            const { html, id } = await comments.getComment(comments.comments.length - 1);
-            console.log(html, id);
-            commentBox.innerHTML = html;
-            commentBox.dataset.id = String(id);
-            const commentBody = postBox.querySelector(".commentBody");
-            commentBody.append(commentBox);
-            await commentRender();
         };
     });
 };

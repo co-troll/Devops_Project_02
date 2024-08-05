@@ -54,14 +54,68 @@ class Posts {
         for (let i = 0; i < comment.comments.length; i++) {
             const commentBox = document.createElement("div");
             commentBox.classList.add("comment");
-            const { html, id } = await comment.getComment(i);
+            const { html, id, countReplys } = await comment.getComment(i);
             commentBox.innerHTML = html;
             commentBox.dataset.id = String(id);
+            const replyBox = document.createElement("div");
+            replyBox.classList.add("replyBox");
+            const replyViewBtn = document.createElement("button");
+            replyViewBtn.classList.add("replyViewBtn");
+            replyViewBtn.hidden = true;
+            replyViewBtn.onclick = (e) => {
+                const arrow = replyViewBtn.querySelector(".replyViewArrow");
+                if (replyViewBtn.hidden) {
+                    arrow.style.transform = "rotate(180deg)";
+                    replyViewBtn.hidden = false;
+                    replyBox.style.height = "max-content";
+                }
+                else {
+                    arrow.removeAttribute("style");
+                    replyBox.removeAttribute("style");
+                    replyViewBtn.hidden = true;
+                }
+            };
+            const replyHtml = `
+<div class="replyViewArrow">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+        width="24" focusable="false"
+        style="pointer-events: none; display: inherit; width: 100%; height: 100%;"
+        aria-hidden="true">
+        <path d="m18 9.28-6.35 6.35-6.37-6.35.72-.71 5.64 5.65 5.65-5.65z"></path>
+    </svg>
+</div>
+<span>답글 <b>${countReplys}</b>개</span>
+
+`;
             const postBoxes = document.querySelectorAll(".postBox");
             postBoxes.forEach((el) => {
-                var _a;
+                var _a, _b;
                 if (el.dataset.id == String(postId)) {
                     (_a = el.querySelector(".commentBody")) === null || _a === void 0 ? void 0 : _a.append(commentBox);
+                    if (countReplys) {
+                        replyViewBtn.innerHTML = replyHtml;
+                        replyBox.append(replyViewBtn);
+                        (_b = el.querySelector(".commentBody")) === null || _b === void 0 ? void 0 : _b.append(replyBox);
+                    }
+                }
+            });
+            await this.renderReply(id);
+        }
+    }
+    async renderReply(commentId) {
+        const reply = new Replys();
+        await reply.setReplys(commentId);
+        for (let i = 0; i < reply.replys.length; i++) {
+            const replyBox = document.createElement("div");
+            replyBox.classList.add("reply");
+            const { html, id } = await reply.getReply(i);
+            replyBox.innerHTML = html;
+            replyBox.dataset.id = String(id);
+            const comment = document.querySelectorAll(".comment");
+            comment.forEach((el) => {
+                var _a;
+                if (el.dataset.id == String(commentId)) {
+                    (_a = el.nextElementSibling) === null || _a === void 0 ? void 0 : _a.append(replyBox);
                 }
             });
         }
@@ -80,6 +134,8 @@ const postRender = async (startId) => {
     (_a = postContainer.firstElementChild) === null || _a === void 0 ? void 0 : _a.classList.add("select");
     // comment
     await commentRender();
+    // reply
+    await replyRender();
     // postMenu
     await postMenuRender();
 };
@@ -142,8 +198,11 @@ document.onwheel = async (e) => {
     _clearTimeOut();
 };
 document.onkeydown = async (e) => {
+    var _a;
     let postPopup = document.querySelector("#postPopup");
-    if (postEvent || postTimeout || !postPopup.hidden) { }
+    let selected = (_a = document.querySelector(".postBox.select")) === null || _a === void 0 ? void 0 : _a.querySelector(".commentBox");
+    if (postEvent || postTimeout || !postPopup.hidden || !selected.hidden) {
+    }
     else if (e.key == "ArrowDown") {
         await postDown();
     }
