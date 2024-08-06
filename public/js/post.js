@@ -2,7 +2,7 @@
 class Post {
     constructor() { }
     async setPost(id) {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/${id}`);
+        const { data } = await axios.get(`${HOST}/post/${id}`);
         this.postId = data.id;
         this.postImg = data.imgPath || "";
         this.userId = data.userId;
@@ -13,10 +13,10 @@ class Post {
         this.like = data.postLikes;
         this.likedUserId = data.likedUserId;
         this.disLikedUserId = data.dislikedUserId;
-        this.commentCount = (await axios.get(`https://testcoffeetree.store/comment/count/${id}`)).data;
+        this.commentCount = (await axios.get(`${HOST}/comment/count/${id}`)).data;
     }
     // async setSearchPost(text: string) {
-    //     const { data }: {data: IPost} = await axios.get(`https://testcoffeetree.store/post/${id}`);
+    //     const { data }: {data: IPost} = await axios.get(`${HOST}/post/${id}`);
     //     this.postId = data.id;
     //     this.postImg = data.imgPath || "";
     //     this.userId = data.userId;
@@ -27,10 +27,10 @@ class Post {
     //     this.like = data.postLikes;
     //     this.likedUserId = data.likedUserId;
     //     this.disLikedUserId = data.dislikedUserId;
-    //     this.commentCount = (await axios.get(`https://testcoffeetree.store/comment/count/${id}`)).data;
+    //     this.commentCount = (await axios.get(`${HOST}/comment/count/${id}`)).data;
     // }
     async createPost(formData) {
-        await axios.post(`https://testcoffeetree.store/post/create`, formData, {
+        await axios.post(`${HOST}/post/create`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
@@ -124,7 +124,7 @@ class Post {
         return postHtml;
     }
     async modifyPost(id, formData) {
-        await axios.put(`https://testcoffeetree.store/post/${id}`, formData, {
+        await axios.put(`${HOST}/post/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
@@ -133,7 +133,7 @@ class Post {
         await postRender(id);
     }
     async deletePost(id) {
-        await axios.delete(`https://testcoffeetree.store/post/${id}`, {
+        await axios.delete(`${HOST}/post/${id}`, {
             headers: {},
             withCredentials: true
         });
@@ -164,7 +164,7 @@ const postMenuRender = async () => {
                 let count = Number(btn.lastElementChild.innerHTML) != 0 ? Number(btn.lastElementChild.innerHTML) - 1 : 0;
                 btn.lastElementChild.innerHTML = String(count);
             }
-            await axios.post(`https://testcoffeetree.store/post-likes/like/${postBox.dataset.id}`, {}, {
+            await axios.post(`${HOST}/post-likes/like/${postBox.dataset.id}`, {}, {
                 withCredentials: true
             });
         };
@@ -185,7 +185,7 @@ const postMenuRender = async () => {
             else {
                 btn.classList.remove("selected");
             }
-            await axios.post(`https://testcoffeetree.store/post-likes/dislike/${postBox.dataset.id}`, {}, {
+            await axios.post(`${HOST}/post-likes/dislike/${postBox.dataset.id}`, {}, {
                 withCredentials: true
             });
         };
