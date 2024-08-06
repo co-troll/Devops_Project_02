@@ -11,7 +11,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookie());
 app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(router);
-app.use(cors());
+app.use(cors(
+    {
+        origin:"https://testcoffeetree.store",
+        methods:["POST","GET","PUT","PATCH","DELETE"],
+        credentials:true
+    }
+));
 
 
 
