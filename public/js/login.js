@@ -27,7 +27,7 @@ const menu = (el) => {
 }
 
 const mypage = () => {
-    location.href = 'https://dropdot.shop/user/mypage'
+    location.href = `${location.origin}/user/mypage`
 }
 
 const searchMyPost = async () => {
@@ -47,7 +47,7 @@ const searchMyPost = async () => {
 
 const logout = async () => {
     console.log("test")
-    const response = await axios.post("https://testcoffeetree.store/user/logout", {}, {
+    const response = await axios.post(`${HOST}/user/logout`, {}, {
         withCredentials: true
     });
     console.log(response);

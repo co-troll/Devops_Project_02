@@ -200,7 +200,9 @@
     //     }
     // }
     // main();
+    console.log(location.origin)
     token = undefined;
+    HOST = "https://testcoffeetree.store";
     window.onload = async () => {
         try {
             if (!<%= tokenExist %>) {
@@ -210,7 +212,7 @@
                 postContainer.firstElementChild?.classList.add("select");
                 return 
             }
-            const { data } = await axios.post(`https://testcoffeetree.store/user/getUserInfo`, {}, {
+            const { data } = await axios.post(`${HOST}/user/getUserInfo`, {}, {
                 withCredentials: true
             });
             if (data) {
