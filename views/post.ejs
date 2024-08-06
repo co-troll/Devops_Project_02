@@ -174,13 +174,15 @@
     // }
     // main();
     console.log(location.origin)
-    token = undefined;
+    TOKEN = undefined;
     HOST = "https://testcoffeetree.store";
     window.onload = async () => {
         try {
             const header = document.querySelector("#header");
             let html;
-            const { data } = await axios.post(`${HOST}/user/getUserInfo`, {}, {
+            const { data } = await axios.post(`${HOST}/user/getUserInfo`, {
+                
+            }, {
                 withCredentials: true
             });
 
@@ -203,7 +205,7 @@
 `
                 console.log(data);
 
-                token = data;
+                TOKEN = data;
             }
             else {
                 html = `

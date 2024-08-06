@@ -3,16 +3,16 @@ class Posts {
     constructor() {
     }
     async init() {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/postCount`);
+        const { data } = await axios.get(`${HOST}/post/postCount`);
         console.log(1);
         this.postIds = data;
     }
     async searchInit(text) {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/searchCount?searchTarget=${text}`);
+        const { data } = await axios.get(`${HOST}/post/searchCount?searchTarget=${text}`);
         this.postIds = data;
     }
     async userInit() {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/findPostByUserCount`, {
+        const { data } = await axios.get(`${HOST}/post/findPostByUserCount`, {
             withCredentials: true
         });
         this.postIds = data;
@@ -146,7 +146,7 @@ const postRender = async (startId) => {
         // postMenu
         await postMenuRender();
         // createBtn
-        if (token) {
+        if (TOKEN) {
             const createBtn = document.querySelector("#createBtn");
             createBtn.hidden = false;
         }

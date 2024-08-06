@@ -13,7 +13,10 @@ app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(router);
 app.use(cors(
     {
-        origin:"https://testcoffeetree.store",
+        origin:[
+            "https://testcoffeetree.store",
+            "http://localhost:3000"
+        ],
         methods:["POST","GET","PUT","PATCH","DELETE"],
         credentials:true
     }

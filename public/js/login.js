@@ -6,17 +6,8 @@ const tokenCheck = (token) => {
     }
 }
 
-const login = async () => {
-    try {
-        await axios.post(`https://dropdot.shop/test`, {}, {
-            withCredentials: true
-        })
-    } catch (error) {
-        console.log(error);
-        location.href = location.origin + "/user/signin";
-        
-    }
-    
+const login = () => {
+    location.href = location.origin + "/user/signin";
 }
 
 
