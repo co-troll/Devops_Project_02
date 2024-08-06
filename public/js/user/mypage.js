@@ -60,7 +60,7 @@ const changeImg = (el) => {
 const withdrawal = async (el) => {
     try {
         if (!confirm("탈퇴하시겠습니까?")) return;
-        const result = await axios.delete("https://testcoffeetree.store/user/delete", {
+        const result = await axios.delete(`${HOST}/user/delete`, {
             withCredentials: true
         })
         if (result.status == 200) {

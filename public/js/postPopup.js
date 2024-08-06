@@ -4,7 +4,7 @@ class PostPopup {
         this.postAddImg = "/img/post/image_add.png";
     }
     async setPostPopup(id) {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/${id}`);
+        const { data } = await axios.get(`${HOST}/post/${id}`);
         this.postId = data.id;
         this.postImg = data.imgPath ? `${data.imgPath}` : "/img/post/image_add.png";
         this.userImg = `${data.user.imgPath}`;
