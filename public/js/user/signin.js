@@ -18,6 +18,7 @@ const signin = async () => {
     const _form = document.querySelector("#form");
     const { loginId, password, oauthType } = _form;
     const response = await axios.post(`${HOST}/user/signin`,
+
         {
             loginId: loginId.value,
             password: password.value,
@@ -28,6 +29,7 @@ const signin = async () => {
         })
     if (response.status == 200) {
         location.href = location.origin
+
     } else if (response.status == 400) {
         alert("계정을 다시 확인해주세요");
     }
