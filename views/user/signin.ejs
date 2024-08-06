@@ -70,7 +70,7 @@
         </div>
         <div class="content" hidden>
             <div>
-                <form action="http://localhost:3000/user/signin" method="post" id="form">
+                <form action="https://testcoffeetree.store/user/signin" method="post" id="form">
                     <input type="text" value="email" name="oauthType" hidden>
                     <div>
                         <label for="">ID</label>
@@ -80,17 +80,17 @@
                         <label for="">password</label>
                         <input type="password" name="password">
                     </div>
-                    <button class="loginBtn">로그인</button>
+                    <button type="button" class="loginBtn" onclick="signin()">로그인</button>
                 </form>
             </div>
             <div class="social-login">
                 <p>소셜 로그인</p>
                 <div class="social-login-type">
                     <div class="kakao-login" onclick="openKakao();">
-                        <img src="http://localhost:3000/imgs/user/kakao_logo.png">
+                        <img src="https://testcoffeetree.store/imgs/user/kakao_logo.png">
                     </div>
                     <div class="google-login" onclick="openGoogle();">
-                        <img src="http://localhost:3000/imgs/user/google_logo.png">
+                        <img src="https://testcoffeetree.store/imgs/user/google_logo.png">
                     </div>
                 </div>
             </div>

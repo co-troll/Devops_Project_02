@@ -4,10 +4,10 @@ class PostPopup {
         this.postAddImg = "/img/post/image_add.png";
     }
     async setPostPopup(id) {
-        const { data } = await axios.get(`http://localhost:3000/post/${id}`);
+        const { data } = await axios.get(`https://testcoffeetree.store/post/${id}`);
         this.postId = data.id;
-        this.postImg = data.imgPath ? `http://localhost:3000${data.imgPath}` : "/img/post/image_add.png";
-        this.userImg = `http://localhost:3000${data.user.imgPath}`;
+        this.postImg = data.imgPath ? `${data.imgPath}` : "/img/post/image_add.png";
+        this.userImg = `${data.user.imgPath}`;
         this.userName = data.user.nickname;
         this.title = data.title;
         this.content = data.content.replace(/<br>/g, "\n");
@@ -26,10 +26,10 @@ class PostPopup {
                 postPopupImg.src = this.postAddImg;
                 postPopupTitle.value = "";
                 postPopupTitle.placeholder = "제목";
-                postPopupTitle.oninput = checkText;
+                postPopupTitle.oninput = postPopupCheckText;
                 postPopupContent.value = "";
                 postPopupContent.placeholder = "내용";
-                postPopupContent.oninput = checkText;
+                postPopupContent.oninput = postPopupCheckText;
                 postPopupDoneBtn.innerHTML = "추가";
                 break;
             case 1 /* POSTPOPUPTYPE.MODIFY */:
@@ -38,10 +38,10 @@ class PostPopup {
                 postPopupImg.src = this.postImg;
                 postPopupTitle.value = this.title;
                 postPopupTitle.placeholder = this.title;
-                postPopupTitle.oninput = checkText;
+                postPopupTitle.oninput = postPopupCheckText;
                 postPopupContent.value = this.content;
                 postPopupContent.placeholder = this.content;
-                postPopupContent.oninput = checkText;
+                postPopupContent.oninput = postPopupCheckText;
                 postPopupDoneBtn.innerHTML = "수정";
                 break;
             case 2 /* POSTPOPUPTYPE.DELETE */:
@@ -50,7 +50,7 @@ class PostPopup {
                 postPopupImg.src = this.postImg;
                 postPopupTitle.value = "";
                 postPopupTitle.placeholder = this.title;
-                postPopupTitle.oninput = checkDeleteText;
+                postPopupTitle.oninput = postPopupCheckDeleteText;
                 postPopupContent.value = "";
                 postPopupContent.placeholder = "위 칸에 제목을 입력해주세요";
                 postPopupContent.oninput = null;
@@ -102,36 +102,21 @@ postPopupDoneBtn.onclick = async () => {
     }
     formData.append("title", postPopupTitle.value);
     formData.append("content", postPopupContent.value.replace(/\n/g, "<br>"));
+    let post = new Post();
     switch (type) {
         case "추가":
-            await axios.post(`http://localhost:3000/post/create`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data;charset=utf-8",
-                },
-                withCredentials: true
-            });
-            await postRender(-1);
+            await post.createPost(formData);
             break;
         case "수정":
-            await axios.put(`http://localhost:3000/post/${id}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data;charset=utf-8",
-                },
-                withCredentials: true
-            });
-            await postRender(id);
+            await post.modifyPost(id, formData);
             break;
         case "삭제":
-            await axios.delete(`http://localhost:3000/post/${id}`, {
-                headers: {},
-                withCredentials: true
-            });
-            await postRender();
+            await post.deletePost(id);
             break;
     }
     await postPopupExit();
 };
-const checkText = () => {
+const postPopupCheckText = () => {
     const postPopupTitle = document.querySelector("#postPopupTitle");
     const postPopupContent = document.querySelector("#postPopupContent");
     if (postPopupTitle.value && postPopupContent.value)
@@ -139,7 +124,7 @@ const checkText = () => {
     else
         postPopupDoneBtn.disabled = true;
 };
-const checkDeleteText = () => {
+const postPopupCheckDeleteText = () => {
     const postPopupTitle = document.querySelector("#postPopupTitle");
     if (postPopupTitle.value == postPopupTitle.placeholder)
         postPopupDoneBtn.disabled = false;

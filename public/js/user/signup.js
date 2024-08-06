@@ -33,7 +33,7 @@ const submitHandler = async (event) => {
         formData.append("nickname", el.nickname.value);
         formData.append("oauthType", el.oauthType.value);
         contentType = "multipart/form-data"
-        response = await axios.post("http://localhost:3000/user/createUser", formData, {
+        response = await axios.post("https://testcoffeetree.store/user/createUser", formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             }
@@ -46,15 +46,16 @@ const submitHandler = async (event) => {
         data.oauthType = el.oauthType.value;
         contentType = "application/json"
         const query = token ? `?token=${token}` : '';
-        const url = 'http://localhost:3000/user/createUser' + query;
+        const url = 'https://testcoffeetree.store/user/createUser' + query;
         console.log(url)
         response = await axios.post(url, data);
     }
     console.log(response);
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
+        location.href = "https://dropdot.shop/user/signin";
     } else {
-        location.href = "http://localhost:8000";
+        location.href = "https://dropdot.shop/user/signin";
     }
 }
 
@@ -97,7 +98,7 @@ window.onload = () => {
 }
 
 const logout = async () => {
-    const response = await axios.post("http://localhost:3000/user/logout");
+    const response = await axios.post("https://testcoffeetree.store/user/logout");
     if (response.status === 200) {
         location.reload();
     }
@@ -126,10 +127,10 @@ const emptyCheck = () => {
 
 const openKakao = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://localhost:3000/auth/kakao", "_blank", option);
+    window.open("https://testcoffeetree.store/auth/kakao", "_blank", option);
 }
 
 const openGoogle = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://localhost:3000/auth/google", "_blank", option);
+    window.open("https://testcoffeetree.store/auth/google", "_blank", option);
 }

@@ -5,7 +5,7 @@ window.onload = () => {
         const content = document.querySelector(".content");
         header.style.display = "flex";
         content.hidden = false;
-    }, 800);
+    }, 500);
     const _img = document.querySelector("#logo");
 
 
@@ -14,12 +14,26 @@ window.onload = () => {
     }
 }
 
+const signin = async () => {
+    const _form = document.querySelector("#form");
+    const { loginId, password, oauthType } = _form;
+    await axios.post("https://testcoffeetree.store/user/signin",
+        {
+            loginId: loginId.value,
+            password: password.value,
+            oauthType: oauthType.value
+        },
+        {
+            withCredentials: true
+        })
+}
+
 const openKakao = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://localhost:3000/auth/kakao", "_blank", option);
+    window.open("https://testcoffeetree.store/auth/kakao", "_blank", option);
 }
 
 const openGoogle = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("http://localhost:3000/auth/google", "_blank", option);
+    window.open("https://testcoffeetree.store/auth/google", "_blank", option);
 }

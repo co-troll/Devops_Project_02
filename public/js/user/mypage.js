@@ -1,7 +1,7 @@
 
 let info = null;
 window.onload = async () => {
-    const { data } = await axios.post("http://localhost:3000/user/getUserInfo", {}, {
+    const { data } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
         withCredentials: true
     });
     info = data;
@@ -32,17 +32,17 @@ const modify = async (el) => {
         info.nickname != nickname.value ? formData.append("nickname", nickname.value) : '';
         password.value != '' ? formData.append("password", password.value) : '';
         formData.append("preImg", info.imgPath);
-        response = await axios.put("http://localhost:3000/user/modify", formData);
+        response = await axios.put("https://testcoffeetree.store/user/modify", formData);
     } else {
         const data = {}
         data.id = el.dataset.id
         info.nickname != nickname.value ? data.nickname = nickname.value : '';
         password.value != '' ? data.password = password.value : '';
-        response = await axios.put("http://localhost:3000/user/modify", data);
+        response = await axios.put("https://testcoffeetree.store/user/modify", data);
     }
     if (response.status == 200) {
         alert("변경이 완료되었습니다.");
-        //location.href = "http://localhost:8000/user/mypage";
+        //location.href = "http://3.38.210.194:8000/user/mypage";
         location.reload();
     }
 }
@@ -60,7 +60,7 @@ const changeImg = (el) => {
 const withdrawal = async (el) => {
     try {
         if (!confirm("탈퇴하시겠습니까?")) return;
-        const result = await axios.delete("http://localhost:3000/user/delete", {
+        const result = await axios.delete("https://testcoffeetree.store/user/delete", {
             withCredentials: true
         })
         if (result.status == 200) {

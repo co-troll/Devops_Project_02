@@ -27,12 +27,27 @@ const menu = (el) => {
 }
 
 const mypage = () => {
-    location.href = 'http://localhost:8000/user/mypage'
+    location.href = 'https://dropdot.shop/user/mypage'
+}
+
+const searchMyPost = async () => {
+    try {
+        postContainer.innerHTML = "";
+        await posts.userInit();
+        await postRender();
+        postContainer.firstElementChild?.classList.add("select");
+        if (!document.querySelector(".postBox.select")?.nextElementSibling) 
+            postDownBtn.setAttribute("hidden", "")
+        if (!document.querySelector(".postBox.select")?.previousElementSibling) 
+            postUpBtn.setAttribute("hidden", "")
+    } catch (error) {
+        console.log(error);   
+    }
 }
 
 const logout = async () => {
     console.log("test")
-    const response = await axios.post("http://localhost:3000/user/logout", {}, {
+    const response = await axios.post("https://testcoffeetree.store/user/logout", {}, {
         withCredentials: true
     });
     console.log(response);
