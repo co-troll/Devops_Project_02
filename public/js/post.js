@@ -40,10 +40,10 @@ class Post {
     }
     async getPost() {
         let userCheck = "hidden", likeCheck = "", disLikeCheck = "";
-        if (token) {
-            userCheck = token.id == this.userId ? "" : "hidden";
-            likeCheck = this.likedUserId.includes(token.id) ? "selected" : "";
-            disLikeCheck = this.disLikedUserId.includes(token.id) ? "selected" : "";
+        if (TOKEN) {
+            userCheck = TOKEN.id == this.userId ? "" : "hidden";
+            likeCheck = this.likedUserId.includes(TOKEN.id) ? "selected" : "";
+            disLikeCheck = this.disLikedUserId.includes(TOKEN.id) ? "selected" : "";
         }
         const postHtml = `
 <div class="post">
@@ -149,7 +149,7 @@ const postMenuRender = async () => {
     postLikeBtns.forEach((el) => {
         el.onclick = async (e) => {
             var _a;
-            if (!token)
+            if (!TOKEN)
                 return;
             const btn = e.target;
             const postBox = btn.closest(".postBox");
@@ -172,7 +172,7 @@ const postMenuRender = async () => {
     postDisLikeBtns.forEach((el) => {
         el.onclick = async (e) => {
             var _a;
-            if (!token)
+            if (!TOKEN)
                 return;
             const btn = e.target;
             const postBox = btn.closest(".postBox");
