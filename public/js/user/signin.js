@@ -28,7 +28,8 @@ const signin = async () => {
             withCredentials: true
         })
     if (response.status == 200) {
-        location.href = location.origin
+        console.log("good login")
+        // location.href = location.origin
 
     } else if (response.status == 400) {
         alert("계정을 다시 확인해주세요");
