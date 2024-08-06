@@ -216,6 +216,7 @@
                 withCredentials: true
             });
             if (data) {
+                console.log(data);
                 const _img = document.querySelector("#userImg");
 
                 const _nickname = document.querySelector("#nickname");
@@ -229,6 +230,9 @@
                 postContainer.innerHTML = "";
                 await postRender();
                 postContainer.firstElementChild?.classList.add("select");
+            }
+            else {
+                console.log("aa");
             }
             
         } catch (error) {
