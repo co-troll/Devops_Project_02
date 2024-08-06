@@ -7,7 +7,7 @@ const tokenCheck = (token) => {
 }
 
 const login = async () => {
-    await axios.post(`https://dropdot/test`, {}, {
+    await axios.post(`https://dropdot.shop/test`, {}, {
         withCredentials: true
     })
     location.href = location.origin + "/user/signin";
