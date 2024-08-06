@@ -12,8 +12,6 @@ router.post("/signin", async (req, res) => {
     res.redirect("/");
 })
 
-
-
 router.get("/mypage", (req, res) => {
     const { token } = req.cookies;
     const tokenEmpty = !token ? true : false;
