@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookie());
 app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(router);
+app.use(cors());
 
 
 
