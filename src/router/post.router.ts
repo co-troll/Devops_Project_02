@@ -17,6 +17,8 @@ router.post("/test", async (req, res) => {
         withCredentials: true
     })
     console.log(data);
+    console.log("---------------------------------------------------------------")
+    console.log(token);
 })
 
 export default router;

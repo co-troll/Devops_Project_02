@@ -7,10 +7,16 @@ const tokenCheck = (token) => {
 }
 
 const login = async () => {
-    await axios.post(`https://dropdot.shop/test`, {}, {
-        withCredentials: true
-    })
-    location.href = location.origin + "/user/signin";
+    try {
+        await axios.post(`https://dropdot.shop/test`, {}, {
+            withCredentials: true
+        })
+    } catch (error) {
+        console.log(error);
+        location.href = location.origin + "/user/signin";
+        
+    }
+    
 }
 
 
