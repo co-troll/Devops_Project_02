@@ -5,9 +5,9 @@ on: # 이벤트를 등록
     branches: # branches 어떤 브랜치에 이벤트가 일어났을 대 작업을 동작
       - main
 
-  pull_request:
-    branches:
-      - main
+  # pull_request:
+  #   branches:
+  #     - main
 
 jobs: # 작업의 단위
   erganiBuild: # 식별자

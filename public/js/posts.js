@@ -3,15 +3,16 @@ class Posts {
     constructor() {
     }
     async init() {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/postCount`);
+        const { data } = await axios.get(`${HOST}/post/postCount`);
+        console.log(1);
         this.postIds = data;
     }
     async searchInit(text) {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/searchCount?searchTarget=${text}`);
+        const { data } = await axios.get(`${HOST}/post/searchCount?searchTarget=${text}`);
         this.postIds = data;
     }
     async userInit() {
-        const { data } = await axios.get(`https://testcoffeetree.store/post/findPostByUserCount`, {
+        const { data } = await axios.get(`${HOST}/post/findPostByUserCount`, {
             withCredentials: true
         });
         this.postIds = data;
@@ -136,17 +137,22 @@ const postUpBtn = document.querySelector("#upBtn");
 const postDownBtn = document.querySelector("#downBtn");
 const posts = new Posts();
 const postRender = async (startId) => {
-    await posts.renderPost(startId);
-    // comment
-    await commentRender();
-    // reply
-    await replyRender();
-    // postMenu
-    await postMenuRender();
-    // createBtn
-    if (token) {
-        const createBtn = document.querySelector("#createBtn");
-        createBtn.hidden = false;
+    try {
+        await posts.renderPost(startId);
+        // comment
+        await commentRender();
+        // reply
+        await replyRender();
+        // postMenu
+        await postMenuRender();
+        // createBtn
+        if (TOKEN) {
+            const createBtn = document.querySelector("#createBtn");
+            createBtn.hidden = false;
+        }
+    }
+    catch (error) {
+        console.log(error);
     }
 };
 // window.onload = async () => {

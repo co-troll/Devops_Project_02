@@ -17,7 +17,8 @@ window.onload = () => {
 const signin = async () => {
     const _form = document.querySelector("#form");
     const { loginId, password, oauthType } = _form;
-    const response = await axios.post("https://testcoffeetree.store/user/signin",
+    const response = await axios.post(`${HOST}/user/signin`,
+
         {
             loginId: loginId.value,
             password: password.value,
@@ -27,7 +28,9 @@ const signin = async () => {
             withCredentials: true
         })
     if (response.status == 200) {
-        location.href = "https://dropdot.shop"
+        console.log("good login")
+        // location.href = location.origin
+
     } else if (response.status == 400) {
         alert("계정을 다시 확인해주세요");
     }
@@ -35,10 +38,10 @@ const signin = async () => {
 
 const openKakao = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("https://testcoffeetree.store/auth/kakao", "_blank", option);
+    window.open(`${HOST}/auth/kakao`, "_blank", option);
 }
 
 const openGoogle = () => {
     let option = 'width=800,height=1000,scrollbars=yes,top=100,left=350,resizable=yes';
-    window.open("https://testcoffeetree.store/auth/google", "_blank", option);
+    window.open(`${HOST}/auth/google`, "_blank", option);
 }
