@@ -32,6 +32,6 @@ app.set("views", path.join(__dirname, "..", "views"));
 //     res.redirect("/post");
 // })
 
-app.listen(8000, () => {
+app.listen(3000, () => {
     console.log("front server on~");
 });
