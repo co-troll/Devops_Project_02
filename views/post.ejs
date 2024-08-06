@@ -245,6 +245,8 @@
 </div>
 `
             }
+            document.querySelector("#loginBox")?.remove();
+            document.querySelector(".login-in")?.remove();
             header.innerHTML += html;
             await posts.init();
             postContainer.innerHTML = "";
