@@ -18,7 +18,8 @@ const router: Router = Router();
 
 router.post("/create", async (req, res) => {
     const { token } = req.cookies;
-    const { data } = req.body;
+    console.log(req.body);
+    const data = req.body;
 
     await axios.post(`/post/create`, data, {
         headers: {
@@ -42,7 +43,8 @@ router.get("/findPostByUserCount", async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { data } = req.body;
+    console.log(req.body);
+    const data = req.body;
     const { token } = req.cookies;
 
     await axios.put(`/post/${id}`, data, {
