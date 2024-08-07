@@ -158,7 +158,7 @@
         try {
             const header = document.querySelector("#header");
             let html;
-            const { data } = await axios.post(`/user/getInfo`, {
+            const { data } = await axios.post(`${HOST}/user/getUserInfo`, {
             }, {
                 withCredentials: true
             });
