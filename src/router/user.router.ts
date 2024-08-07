@@ -11,6 +11,7 @@ router.post("/signin", async (req, res) => {
 
         const { body } = req
         const { data } = await axios.post("https://testcoffeetree.store/user/signin", body, { withCredentials: true });
+        console.log(data);
         sessionStorage.setItem("token", data.token);
 
         /*
@@ -19,7 +20,7 @@ router.post("/signin", async (req, res) => {
         res.cookie("token", data.token, { httpOnly: true, expires: date, sameSite: "none", secure: true });
         */
 
-        res.redirect("/");
+        return res.redirect("/");
     } catch (error) {
         console.error("")
     }
