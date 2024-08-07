@@ -65,13 +65,12 @@ class Post {
     // }
 
     async createPost(formData: FormData) {
-        const { data } = await axios.post(`/post/create`, formData, {
+        await axios.post(`/post/create`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
             withCredentials: true
         })
-        console.log(data);
         await postRender(-1);
     }
 
