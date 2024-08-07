@@ -68,7 +68,7 @@ const postPopupEnter = async (type) => {
     let postPopup = new PostPopup();
     if (type != 0 /* POSTPOPUPTYPE.CREATE */) {
         let selected = document.querySelector(".postBox.select");
-        let id = Number(selected.dataset.id);
+        let id = Number(selected === null || selected === void 0 ? void 0 : selected.dataset.id);
         await postPopup.setPostPopup(id);
     }
     await postPopup.getPostPopup(type);
