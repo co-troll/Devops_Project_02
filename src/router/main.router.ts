@@ -7,7 +7,6 @@ import likeRouter from './like.router'
 const router = Router();
 
 router.get("/", (req, res) => {
-    console.log(11);
     res.render("post");
 })
 

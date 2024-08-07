@@ -1,10 +1,10 @@
 
 let info = null;
 window.onload = async () => {
-    // const { data } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
-    //     withCredentials: true
-    // });
-    // info = data;
+    const { data } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
+        withCredentials: true
+    });
+    info = data;
     // console.log(data)
     // const _nickname = document.querySelector("#nickname");
     // const _pw = document.querySelector(".password-wrap");
@@ -42,8 +42,8 @@ const modify = async (el) => {
     }
     if (response.status == 200) {
         alert("변경이 완료되었습니다.");
-        //location.href = "http://3.38.210.194:8000/user/mypage";
-        location.reload();
+        location.href = "/";
+        // location.reload();
     }
 }
 
