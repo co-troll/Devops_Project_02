@@ -14,6 +14,7 @@ router.get("/signin", (req, res) => {
 router.post("/signin", async (req, res) => {
     try {
         const { token } = req.cookies;
+        console.log("token", token)
         if (token) {
             res.header("content-type", "text/html")
             res.status(500).send("<script>alert('이미 로그인되어 있습니다.');location.reload();</script>")
@@ -63,7 +64,7 @@ router.get("/mypage", async (req, res) => {
             'Authorization': `Bearer ${token}`
         }
     })
-    res.render("user/mypage", data);
+    res.render("user/mypage", { data });
 })
 
 router.get("/signup", (req, res) => {
