@@ -18,7 +18,7 @@ const router: Router = Router();
 
 router.post("/create", async (req, res) => {
     const { token } = req.cookies;
-    console.log(req.body);
+    res.send(req);
     const data = req.body;
 
     await axios.post(`/post/create`, data, {

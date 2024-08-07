@@ -65,12 +65,13 @@ class Post {
     // }
 
     async createPost(formData: FormData) {
-        await axios.post(`${HOST}/post/create`, formData, {
+        const { data } = await axios.post(`/post/create`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
             withCredentials: true
         })
+        console.log(data);
         await postRender(-1);
     }
 
@@ -161,7 +162,7 @@ class Post {
     }
 
     async modifyPost(id: number, formData: FormData) {
-        await axios.put(`${HOST}/post/${id}`, formData, {
+        await axios.put(`/post/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
