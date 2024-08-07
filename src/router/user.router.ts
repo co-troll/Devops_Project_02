@@ -26,6 +26,15 @@ router.post("/signin", async (req, res) => {
     }
 })
 
+router.post("/getInfo", async (req, res) => {
+    const { cookies } = req.cookies;
+    const { data } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
+        withCredentials: true
+    })
+    console.log(data);
+    res.send(data);
+})
+
 router.get("/mypage", (req, res) => {
     const { token } = req.cookies;
     const tokenEmpty = !token ? true : false;
