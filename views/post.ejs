@@ -150,42 +150,14 @@
     logo.onclick = () => {
         location.reload();
     }
-    // async function main() {
-    //     try {
-    //         if (!<%= tokenExist %>) return;
-    //         console.log("asdfas")
-    //         const { data } = await axios.post(location.protocol + "//" + location.hostname + ":3000" + "/user/getUserInfo", {}, {
-    //             withCredentials: true
-    //         });
-    //         if (data) {
-    //             const _img = document.querySelector("#userImg");
 
-    //             const _nickname = document.querySelector("#nickname");
-    //             _img.src = data.imgPath;
-    //             _img.style.width = "20px";
-    //             _img.style.height = "20px";
-    //             _nickname.innerText = data.nickname
-
-    //             window.token = data
-
-    //         }
-    //     } catch (error) {
-    //         //console.error(error);
-    //     }
-    // }
-    // main();
     console.log(location.origin)
     TOKEN = undefined;
     HOST = "https://testcoffeetree.store";
     window.onload = async () => {
         try {
             const header = document.querySelector("#header");
-            const token = sessionStorage.getItem('token');
             let html;
-            // const { data } = await axios.post(`${HOST}/user/getUserInfo`, {
-            // }, {
-            //     withCredentials: true
-            // });
             const { data } = await axios.post(`/user/getInfo`, {
             }, {
                 withCredentials: true
