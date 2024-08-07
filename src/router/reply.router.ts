@@ -4,7 +4,8 @@ import { Router } from "express";
 const router: Router = Router();
 
 router.post('/createReply', async (req, res) => {
-    const { data } = req.body;
+    console.log(req.body);
+    const data = req.body;
     const { token } = req.cookies;
 
     await axios.post(`/reply/createReply`, data, {
@@ -16,7 +17,8 @@ router.post('/createReply', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { data } = req.body;
+    console.log(req.body);
+    const data = req.body;
     const { token } = req.cookies;
 
     await axios.put(`/reply/${id}`, data, {
