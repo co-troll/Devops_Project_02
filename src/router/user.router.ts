@@ -27,11 +27,15 @@ router.post("/signin", async (req, res) => {
 })
 
 router.post("/getInfo", async (req, res) => {
-    const { cookies } = req.cookies;
+    const { token } = req.cookies;
+    console.log("프론트에서 찍는 토큰", token);
     const { data } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
         withCredentials: true
     })
-    console.log(data);
+    console.log('"프론트에서 찍는 데이터', data);
     res.send(data);
 })
 
