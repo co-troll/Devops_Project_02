@@ -1,9 +1,20 @@
 import { Router } from 'express'
 import userRouter from './user.router';
 import postRouter from './post.router';
+import commentRouter from './comment.router';
+import replyRouter from './reply.router';
+import likeRouter from './like.router'
 const router = Router();
 
 router.use("/user", userRouter);
-router.use("/", postRouter);
+router.use("/post", postRouter);
+router.use("/comment", commentRouter);
+router.use("/reply", replyRouter);
+router.use("/", likeRouter);
+
+router.get("/", (req, res) => {
+    res.render("post");
+})
+
 
 export default router;
