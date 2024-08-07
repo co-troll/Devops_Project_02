@@ -12,13 +12,13 @@ router.post("/signin", async (req, res) => {
         const { body } = req
         const { data } = await axios.post("https://testcoffeetree.store/user/signin", body, { withCredentials: true });
         console.log(data);
-        sessionStorage.setItem("token", data.token);
+        //sessionStorage.setItem("token", data.token);
 
-        /*
+
         const date = new Date();
         date.setMinutes(date.getMinutes() + 60)
         res.cookie("token", data.token, { httpOnly: true, expires: date, sameSite: "none", secure: true });
-        */
+
 
         res.redirect("/");
     } catch (error) {
