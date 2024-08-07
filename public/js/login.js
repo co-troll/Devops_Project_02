@@ -1,15 +1,7 @@
 
-const tokenCheck = (token) => {
-    if (token) {
-        alert("이미 로그인되어 있습니다.");
-        history.back();
-    }
-}
-
 const login = () => {
-    location.href = location.origin + "/user/signin";
+    location.href = "/user/signin";
 }
-
 
 const menu = (el) => {
     const child = el.parentNode.querySelector(".user-menu");
@@ -27,7 +19,7 @@ const menu = (el) => {
 }
 
 const mypage = () => {
-    location.href = `${location.origin}/user/mypage`
+    location.href = `/user/mypage`
 }
 
 const searchMyPost = async () => {
@@ -36,21 +28,19 @@ const searchMyPost = async () => {
         await posts.userInit();
         await postRender();
         postContainer.firstElementChild?.classList.add("select");
-        if (!document.querySelector(".postBox.select")?.nextElementSibling) 
+        if (!document.querySelector(".postBox.select")?.nextElementSibling)
             postDownBtn.setAttribute("hidden", "")
-        if (!document.querySelector(".postBox.select")?.previousElementSibling) 
+        if (!document.querySelector(".postBox.select")?.previousElementSibling)
             postUpBtn.setAttribute("hidden", "")
     } catch (error) {
-        console.log(error);   
+        console.log(error);
     }
 }
 
 const logout = async () => {
-    console.log("test")
-    const response = await axios.post(`${HOST}/user/logout`, {}, {
+    const response = await axios.post(`/user/logout`, {}, {
         withCredentials: true
     });
-    console.log(response);
     if (response.status === 200) {
         location.reload();
     }
