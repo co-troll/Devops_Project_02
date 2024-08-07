@@ -184,9 +184,6 @@
             let html;
             const { data } = await axios.post(`${HOST}/user/getUserInfo`, {
             }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
                 withCredentials: true
             });
 
