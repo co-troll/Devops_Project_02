@@ -4,7 +4,7 @@ window.onload = async () => {
         withCredentials: true
     });
 
-    // console.log(data)
+    console.log(data)
     // const _nickname = document.querySelector("#nickname");
     // const _pw = document.querySelector(".password-wrap");
     // const _img = document.querySelector("#userImg");
