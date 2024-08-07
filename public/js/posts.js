@@ -12,7 +12,7 @@ class Posts {
         this.postIds = data;
     }
     async userInit() {
-        const { data } = await axios.get(`${HOST}/post/findPostByUserCount`, {
+        const { data } = await axios.get(`/post/findPostByUserCount`, {
             withCredentials: true
         });
         this.postIds = data;
@@ -164,13 +164,13 @@ const postDown = async () => {
     if ((_b = (_a = postContainer.lastElementChild) === null || _a === void 0 ? void 0 : _a.previousElementSibling) === null || _b === void 0 ? void 0 : _b.classList.contains("select")) {
         await postRender();
     }
-    if (!selected.nextElementSibling)
+    if (!(selected === null || selected === void 0 ? void 0 : selected.nextElementSibling))
         return;
     postEvent = true;
     console.log('Down!');
-    commentExit(selected.querySelector(".post > .commentBox"));
-    selected.classList.remove("select");
-    (_c = selected.nextElementSibling) === null || _c === void 0 ? void 0 : _c.classList.add("select");
+    commentExit(selected === null || selected === void 0 ? void 0 : selected.querySelector(".post > .commentBox"));
+    selected === null || selected === void 0 ? void 0 : selected.classList.remove("select");
+    (_c = selected === null || selected === void 0 ? void 0 : selected.nextElementSibling) === null || _c === void 0 ? void 0 : _c.classList.add("select");
     postUpBtn.removeAttribute("hidden");
     if (!((_d = document.querySelector(".postBox.select")) === null || _d === void 0 ? void 0 : _d.nextElementSibling))
         postDownBtn.setAttribute("hidden", "");
@@ -178,11 +178,11 @@ const postDown = async () => {
 const postUp = async () => {
     var _a, _b;
     let selected = document.querySelector(".postBox.select");
-    if (!selected.previousElementSibling)
+    if (!(selected === null || selected === void 0 ? void 0 : selected.previousElementSibling))
         return;
     postEvent = true;
     console.log('Up!');
-    commentExit(selected.querySelector(".post > .commentBox"));
+    commentExit(selected === null || selected === void 0 ? void 0 : selected.querySelector(".post > .commentBox"));
     selected === null || selected === void 0 ? void 0 : selected.classList.remove("select");
     (_a = selected === null || selected === void 0 ? void 0 : selected.previousElementSibling) === null || _a === void 0 ? void 0 : _a.classList.add("select");
     postDownBtn.removeAttribute("hidden");

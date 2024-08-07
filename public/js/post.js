@@ -30,7 +30,7 @@ class Post {
     //     this.commentCount = (await axios.get(`${HOST}/comment/count/${id}`)).data;
     // }
     async createPost(formData) {
-        await axios.post(`${HOST}/post/create`, formData, {
+        await axios.post(`/post/create`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
@@ -124,7 +124,7 @@ class Post {
         return postHtml;
     }
     async modifyPost(id, formData) {
-        await axios.put(`${HOST}/post/${id}`, formData, {
+        await axios.put(`/post/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
@@ -133,8 +133,7 @@ class Post {
         await postRender(id);
     }
     async deletePost(id) {
-        await axios.delete(`${HOST}/post/${id}`, {
-            headers: {},
+        await axios.delete(`/post/${id}`, {
             withCredentials: true
         });
         await postRender();
@@ -164,7 +163,7 @@ const postMenuRender = async () => {
                 let count = Number(btn.lastElementChild.innerHTML) != 0 ? Number(btn.lastElementChild.innerHTML) - 1 : 0;
                 btn.lastElementChild.innerHTML = String(count);
             }
-            await axios.post(`${HOST}/post-likes/like/${postBox.dataset.id}`, {}, {
+            await axios.post(`/post-likes/like/${postBox.dataset.id}`, {}, {
                 withCredentials: true
             });
         };
@@ -185,7 +184,7 @@ const postMenuRender = async () => {
             else {
                 btn.classList.remove("selected");
             }
-            await axios.post(`${HOST}/post-likes/dislike/${postBox.dataset.id}`, {}, {
+            await axios.post(`/post-likes/dislike/${postBox.dataset.id}`, {}, {
                 withCredentials: true
             });
         };
