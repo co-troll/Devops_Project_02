@@ -1,6 +1,6 @@
 
 window.onload = async () => {
-    const { data: info } = await axios.post("/user/getUserInfo", {}, {
+    const { data: info } = await axios.post("/user/getInfo", {}, {
 
     });
     window.info = info;
