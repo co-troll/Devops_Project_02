@@ -1,22 +1,22 @@
 
 let info = null;
 window.onload = async () => {
-    const { data } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
-        withCredentials: true
-    });
-    info = data;
-    console.log(data)
-    const _nickname = document.querySelector("#nickname");
-    const _pw = document.querySelector(".password-wrap");
-    const _img = document.querySelector("#userImg");
-    const btn1 = document.querySelector("#modifyBtn");
-    const btn2 = document.querySelector("#withdrawalBtn");
-    _nickname.value = data.nickname
-    _img.src = data.imgPath;
-    btn1.dataset.id = data.id;
-    btn2.dataset.id = data.id;
-    if (data.oauthType != 'email')
-        _pw.style.display = "none";
+    // const { data } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
+    //     withCredentials: true
+    // });
+    // info = data;
+    // console.log(data)
+    // const _nickname = document.querySelector("#nickname");
+    // const _pw = document.querySelector(".password-wrap");
+    // const _img = document.querySelector("#userImg");
+    // const btn1 = document.querySelector("#modifyBtn");
+    // const btn2 = document.querySelector("#withdrawalBtn");
+    // _nickname.value = data.nickname
+    // _img.src = data.imgPath;
+    // btn1.dataset.id = data.id;
+    // btn2.dataset.id = data.id;
+    // if (data.oauthType != 'email')
+    //     _pw.style.display = "none";
 }
 const modify = async (el) => {
     if (!confirm("회원정보를 수정하시겠습니까?")) return;

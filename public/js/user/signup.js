@@ -33,10 +33,8 @@ const submitHandler = async (event) => {
         formData.append("nickname", el.nickname.value);
         formData.append("oauthType", el.oauthType.value);
         contentType = "multipart/form-data"
-        response = await axios.post(`${HOST}/user/createUser`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data;charset=utf-8",
-            }
+        response = await axios.post(`https://testcoffeetree.store/user/createUser`, formData, {
+            withCredentials: true
         });
     } else {
         data = {}
@@ -46,16 +44,18 @@ const submitHandler = async (event) => {
         data.oauthType = el.oauthType.value;
         contentType = "application/json"
         const query = token ? `?token=${token}` : '';
-        const url = `${HOST}/user/createUser${query}`;
+        const url = `https://testcoffeetree.store/user/createUser${query}`;
         console.log(url)
-        response = await axios.post(url, data);
+        response = await axios.post(url, data, {
+            withCredentials: true
+        });
     }
     console.log(response);
     if (!response.data) {
         alert("이미 가입된 계정입니다.");
-        location.href = `${location.origin}/user/signin`;
+        location.href = `/user/signin`;
     } else {
-        location.href = `${location.origin}/user/signin`;
+        location.href = `/user/signin`;
     }
 }
 
