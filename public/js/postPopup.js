@@ -96,7 +96,7 @@ postPopupDoneBtn.onclick = async () => {
     const postPopupContent = document.querySelector("#postPopupContent");
     const inputFiles = postPopupInputImg.files;
     let selected = document.querySelector(".postBox.select");
-    let id = Number(selected.dataset.id);
+    let id = Number(selected === null || selected === void 0 ? void 0 : selected.dataset.id);
     const formData = new FormData();
     if (inputFiles[0]) {
         formData.append("file", inputFiles[0]);
