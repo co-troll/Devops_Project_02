@@ -182,7 +182,11 @@
             const header = document.querySelector("#header");
             const token = sessionStorage.getItem('token');
             let html;
-            const { data } = await axios.post(`${HOST}/user/getUserInfo`, {
+            // const { data } = await axios.post(`${HOST}/user/getUserInfo`, {
+            // }, {
+            //     withCredentials: true
+            // });
+            const { data } = await axios.post(`/user/getInfo`, {
             }, {
                 withCredentials: true
             });
