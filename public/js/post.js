@@ -30,13 +30,12 @@ class Post {
     //     this.commentCount = (await axios.get(`${HOST}/comment/count/${id}`)).data;
     // }
     async createPost(formData) {
-        const { data } = await axios.post(`/post/create`, formData, {
+        await axios.post(`/post/create`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
             withCredentials: true
         });
-        console.log(data);
         await postRender(-1);
     }
     async getPost() {
