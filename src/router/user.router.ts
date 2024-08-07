@@ -20,9 +20,9 @@ router.post("/signin", async (req, res) => {
         res.cookie("token", data.token, { httpOnly: true, expires: date, sameSite: "none", secure: true });
         */
 
-        return res.redirect("/");
+        res.redirect("/");
     } catch (error) {
-        console.error("")
+        console.error(error)
     }
 })
 
