@@ -1,7 +1,7 @@
 
 window.onload = async () => {
-    const { data: info } = await axios.post("https://testcoffeetree.store/user/getUserInfo", {}, {
-        withCredentials: true
+    const { data: info } = await axios.post("/user/getUserInfo", {}, {
+
     });
     window.info = info;
     console.log(data)
