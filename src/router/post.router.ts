@@ -19,13 +19,13 @@ const router: Router = Router();
 router.post("/create", async (req, res) => {
     const { token } = req.cookies;
     console.log(req);
-    const data = req.body;
+    const data = req;
 
     await axios.post(`/post/create`, data, {
         headers: {
             "Content-Type": "multipart/form-data;charset=utf-8",
             'Authorization': `Bearer ${token}`
-        }   
+        }
     })
 })
 

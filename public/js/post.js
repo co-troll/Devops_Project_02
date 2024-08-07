@@ -34,7 +34,12 @@ class Post {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
-            withCredentials: true
+            withCredentials: true,
+            transformRequest: [
+                function () {
+                    return formData;
+                }
+            ]
         });
         await postRender(-1);
     }
