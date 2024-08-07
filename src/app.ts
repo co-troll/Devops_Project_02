@@ -13,7 +13,10 @@ app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(router);
 app.use(cors(
     {
-        origin:"https://testcoffeetree.store",
+        origin:[
+            "https://testcoffeetree.store",
+            "http://localhost:3000"
+        ],
         methods:["POST","GET","PUT","PATCH","DELETE"],
         credentials:true
     }
@@ -29,6 +32,6 @@ app.set("views", path.join(__dirname, "..", "views"));
 //     res.redirect("/post");
 // })
 
-app.listen(8000, () => {
+app.listen(3000, () => {
     console.log("front server on~");
 });

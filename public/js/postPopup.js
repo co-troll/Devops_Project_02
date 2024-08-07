@@ -63,13 +63,14 @@ const postCreateBtn = document.querySelector("#createBtn");
 const postPopupExitBtn = document.querySelector("#postPopupExitBtn");
 const postPopupDoneBtn = document.querySelector("#postPopupDoneBtn");
 const postPopupEnter = async (type) => {
-    let selected = document.querySelector(".postBox.select");
-    let id = Number(selected.dataset.id);
     let postPopupDiv = document.querySelector("#postPopup");
     postPopupDiv.hidden = false;
     let postPopup = new PostPopup();
-    if (type != 0 /* POSTPOPUPTYPE.CREATE */)
+    if (type != 0 /* POSTPOPUPTYPE.CREATE */) {
+        let selected = document.querySelector(".postBox.select");
+        let id = Number(selected.dataset.id);
         await postPopup.setPostPopup(id);
+    }
     await postPopup.getPostPopup(type);
 };
 const postPopupExit = async () => {
