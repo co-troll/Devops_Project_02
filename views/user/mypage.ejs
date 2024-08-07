@@ -7,16 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/mypage.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        HOST = "https://testcoffeetree.store";
-        const tokenCheck = () => {
-            if (<%= tokenEmpty %>) {
-                alert("로그인 정보가 없습니다.");
-                history.back();
-            }
-        }
-        tokenCheck();
-    </script>
 </head>
 
 <body>
@@ -61,13 +51,13 @@
                 <form id="form">
                     <div>
                         <label for="img">
-                            <img id="userImg" src="" alt="이미지 없음">
+                            <img id="userImg" src="<%=data.imgPath%>" alt="이미지 없음">
                         </label>
                         <input onchange="changeImg(this)" type="file" id="img" name="file" hidden>
                     </div>
                     <div>
                         <label for="nickname">Nickname</label>
-                        <input type="text" id="nickname" name="nickname">
+                        <input type="text" id="nickname" name="nickname" valu="<%=data.nickname%>">
                     </div>
                     <div class="password-wrap">
                         <label for="password">Password</label>

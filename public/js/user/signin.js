@@ -10,14 +10,14 @@ window.onload = () => {
 
 
     _img.onclick = () => {
-        location.href = location.protocol + "//" + location.hostname + ":" + location.port
+        location.href = "/"
     }
 }
 
 const signin = async () => {
     const _form = document.querySelector("#form");
     const { loginId, password, oauthType } = _form;
-    const response = await axios.post(`${HOST}/user/signin`,
+    const response = await axios.post(`/user/signin`,
 
         {
             loginId: loginId.value,
