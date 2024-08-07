@@ -30,7 +30,7 @@ class Post {
     //     this.commentCount = (await axios.get(`${HOST}/comment/count/${id}`)).data;
     // }
     async createPost(formData) {
-        await axios.post(`/post/create`, formData, {
+        await axios.post(`${HOST}/post/create`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
@@ -124,7 +124,7 @@ class Post {
         return postHtml;
     }
     async modifyPost(id, formData) {
-        await axios.put(`/post/${id}`, formData, {
+        await axios.put(`${HOST}/post/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data;charset=utf-8",
             },
