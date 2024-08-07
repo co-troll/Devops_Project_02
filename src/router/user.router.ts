@@ -44,9 +44,7 @@ router.post("/signin", async (req, res) => {
 
 router.post("/getInfo", async (req, res) => {
     try {
-
         const { token } = req.cookies;
-
         if (!token) {
             res.header("content-type", "text/html")
             res.status(500).send("<script>alert('권한이 없습니다.');location.reload();</script>")
